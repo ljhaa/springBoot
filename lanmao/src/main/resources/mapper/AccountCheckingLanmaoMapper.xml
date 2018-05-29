@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.AccountCheckingLanmaoMapper" >
+  <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.AccountCheckingLanmao" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="business_type" property="businessType" jdbcType="VARCHAR" />
+    <result column="lanmao_relevance_platform" property="lanmaoRelevancePlatform" jdbcType="VARCHAR" />
+    <result column="bill_creat_time" property="billCreatTime" jdbcType="TIMESTAMP" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="check_status" property="checkStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yipuhui.fastgo.enty.AccountCheckingLanmao" extends="BaseResultMap" >
+    <result column="lanmao_data" property="lanmaoData" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, business_type, lanmao_relevance_platform, bill_creat_time, creat_time, check_status
+  </sql>
+  <sql id="Blob_Column_List" >
+    lanmao_data
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yipuhui.fastgo.enty.AccountCheckingLanmaoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from account_checking_lanmao
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yipuhui.fastgo.enty.AccountCheckingLanmaoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from account_checking_lanmao
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from account_checking_lanmao
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from account_checking_lanmao
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yipuhui.fastgo.enty.AccountCheckingLanmaoExample" >
+    delete from account_checking_lanmao
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yipuhui.fastgo.enty.AccountCheckingLanmao" >
+    insert into account_checking_lanmao (id, business_type, lanmao_relevance_platform, 
+      bill_creat_time, creat_time, check_status, 
+      lanmao_data)
+    values (#{id,jdbcType=INTEGER}, #{businessType,jdbcType=VARCHAR}, #{lanmaoRelevancePlatform,jdbcType=VARCHAR}, 
+      #{billCreatTime,jdbcType=TIMESTAMP}, #{creatTime,jdbcType=TIMESTAMP}, #{checkStatus,jdbcType=INTEGER}, 
+      #{lanmaoData,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yipuhui.fastgo.enty.AccountCheckingLanmao" >
+    insert into account_checking_lanmao
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="lanmaoRelevancePlatform != null" >
+        lanmao_relevance_platform,
+      </if>
+      <if test="billCreatTime != null" >
+        bill_creat_time,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="checkStatus != null" >
+        check_status,
+      </if>
+      <if test="lanmaoData != null" >
+        lanmao_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="lanmaoRelevancePlatform != null" >
+        #{lanmaoRelevancePlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="billCreatTime != null" >
+        #{billCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkStatus != null" >
+        #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lanmaoData != null" >
+        #{lanmaoData,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yipuhui.fastgo.enty.AccountCheckingLanmaoExample" resultType="java.lang.Integer" >
+    select count(*) from account_checking_lanmao
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update account_checking_lanmao
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessType != null" >
+        business_type = #{record.businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lanmaoRelevancePlatform != null" >
+        lanmao_relevance_platform = #{record.lanmaoRelevancePlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billCreatTime != null" >
+        bill_creat_time = #{record.billCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creatTime != null" >
+        creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.checkStatus != null" >
+        check_status = #{record.checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.lanmaoData != null" >
+        lanmao_data = #{record.lanmaoData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update account_checking_lanmao
+    set id = #{record.id,jdbcType=INTEGER},
+      business_type = #{record.businessType,jdbcType=VARCHAR},
+      lanmao_relevance_platform = #{record.lanmaoRelevancePlatform,jdbcType=VARCHAR},
+      bill_creat_time = #{record.billCreatTime,jdbcType=TIMESTAMP},
+      creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      check_status = #{record.checkStatus,jdbcType=INTEGER},
+      lanmao_data = #{record.lanmaoData,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update account_checking_lanmao
+    set id = #{record.id,jdbcType=INTEGER},
+      business_type = #{record.businessType,jdbcType=VARCHAR},
+      lanmao_relevance_platform = #{record.lanmaoRelevancePlatform,jdbcType=VARCHAR},
+      bill_creat_time = #{record.billCreatTime,jdbcType=TIMESTAMP},
+      creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      check_status = #{record.checkStatus,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yipuhui.fastgo.enty.AccountCheckingLanmao" >
+    update account_checking_lanmao
+    <set >
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="lanmaoRelevancePlatform != null" >
+        lanmao_relevance_platform = #{lanmaoRelevancePlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="billCreatTime != null" >
+        bill_creat_time = #{billCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkStatus != null" >
+        check_status = #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lanmaoData != null" >
+        lanmao_data = #{lanmaoData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yipuhui.fastgo.enty.AccountCheckingLanmao" >
+    update account_checking_lanmao
+    set business_type = #{businessType,jdbcType=VARCHAR},
+      lanmao_relevance_platform = #{lanmaoRelevancePlatform,jdbcType=VARCHAR},
+      bill_creat_time = #{billCreatTime,jdbcType=TIMESTAMP},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      check_status = #{checkStatus,jdbcType=INTEGER},
+      lanmao_data = #{lanmaoData,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yipuhui.fastgo.enty.AccountCheckingLanmao" >
+    update account_checking_lanmao
+    set business_type = #{businessType,jdbcType=VARCHAR},
+      lanmao_relevance_platform = #{lanmaoRelevancePlatform,jdbcType=VARCHAR},
+      bill_creat_time = #{billCreatTime,jdbcType=TIMESTAMP},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      check_status = #{checkStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

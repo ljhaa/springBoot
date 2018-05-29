@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>排班</title>
+    <link rel="stylesheet" type="text/css" href="../static/scripts/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/scripts/icon.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../demo.css">-->
+    <script type="text/javascript" src="../static/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/scripts/jquery.easyui.min.js"></script>
+</head>
+<body>
+
+<div style="margin:20px 0;"></div>
+<div class="easyui-layout" style="width:1500px;height:890px;">
+    <div data-options="region:'north'" style="height:120px">
+        <div>
+            <a href="/user/adduser">添加值班人员</a>
+        </div>
+        <div>
+            <h1 id="msg"></h1>
+            <form>
+
+                <input type="hidden" id="zhiban_id" name="id"/>
+                <table>
+                    <tr>
+                        <td> 将要值班人姓名 :</td>
+                        <td id="zhiban_name"></td>
+                    </tr>
+                    <tr>
+                        <td> 排班日期 :</td>
+                        <td id="zhiban_date"></td>
+                    </tr>
+                    <tr>
+                        <td><input id="submit" type="button" value="确认值班"/></td>
+                        <td><a href="/user/tiaoban"><input id="tiaoban" type="button" value="调班申请"/></a></td>
+                    </tr>
+                </table>
+
+
+            </form>
+
+        </div>
+
+    </div>
+    <!--<div data-options="region:'south',split:true" style="height:50px;"></div>-->
+    <!--<div data-options="region:'east',split:true" title="East" style="width:100px;"></div>-->
+    <!--<div data-options="region:'west',split:true" title="West" style="width:100px;"></div>-->
+    <div data-options="region:'center',title:'排班计划',iconCls:'icon-ok'">
+        <table class="easyui-datagrid"
+               data-options="url:'/user/show',method:'post',border:false,singleSelect:true,fit:true,fitColumns:true">
+            <thead id="liebiao">
+            <tr>
+                <th data-options="field:'id'" width="10">ID</th>
+                <th data-options="field:'name'" width="10">姓名</th>
+                <th data-options="field:'paibanSum'" width="10">值班次数</th>
+                <th data-options="field:'paibanDeta'" width="100">下次值班日期</th>
+
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+</body>
+<script>
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: '/user/show',
+
+
+            success: function (data, status) {
+
+                var str = '';
+
+
+                $("#zhiban_id").val(data[0].id);
+                $("#zhiban_name").html(data[0].name);
+                $("#zhiban_date").html(data[0].paibanDeta);
+
+                if (data[0].scheduling === 0) {
+
+                    $("#submit").val("已确认");
+                }
+
+            },
+            complete: function (XMLHttpRequest, textStatus) {
+
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+
+
+    });
+
+</script>
+</html>

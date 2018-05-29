@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.OpenModelConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.OpenModelConfig" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="model_type" property="modelType" jdbcType="CHAR" />
+    <result column="model_description" property="modelDescription" jdbcType="VARCHAR" />
+    <result column="is_open" property="isOpen" jdbcType="CHAR" />
+    <result column="coupon_type" property="couponType" jdbcType="VARCHAR" />
+    <result column="use_line_limit" property="useLineLimit" jdbcType="DECIMAL" />
+    <result column="coupon_limit" property="couponLimit" jdbcType="DECIMAL" />
+    <result column="coupon_valid_days" property="couponValidDays" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, model_type, model_description, is_open, coupon_type, use_line_limit, coupon_limit, 
+    coupon_valid_days, create_time, operate_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_open_model_config
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_open_model_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yipuhui.fastgo.enty.OpenModelConfig" >
+    insert into t_open_model_config (id, model_type, model_description, 
+      is_open, coupon_type, use_line_limit, 
+      coupon_limit, coupon_valid_days, create_time, 
+      operate_time)
+    values (#{id,jdbcType=INTEGER}, #{modelType,jdbcType=CHAR}, #{modelDescription,jdbcType=VARCHAR}, 
+      #{isOpen,jdbcType=CHAR}, #{couponType,jdbcType=VARCHAR}, #{useLineLimit,jdbcType=DECIMAL}, 
+      #{couponLimit,jdbcType=DECIMAL}, #{couponValidDays,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{operateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yipuhui.fastgo.enty.OpenModelConfig" >
+    insert into t_open_model_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="modelType != null" >
+        model_type,
+      </if>
+      <if test="modelDescription != null" >
+        model_description,
+      </if>
+      <if test="isOpen != null" >
+        is_open,
+      </if>
+      <if test="couponType != null" >
+        coupon_type,
+      </if>
+      <if test="useLineLimit != null" >
+        use_line_limit,
+      </if>
+      <if test="couponLimit != null" >
+        coupon_limit,
+      </if>
+      <if test="couponValidDays != null" >
+        coupon_valid_days,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="operateTime != null" >
+        operate_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="modelType != null" >
+        #{modelType,jdbcType=CHAR},
+      </if>
+      <if test="modelDescription != null" >
+        #{modelDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null" >
+        #{isOpen,jdbcType=CHAR},
+      </if>
+      <if test="couponType != null" >
+        #{couponType,jdbcType=VARCHAR},
+      </if>
+      <if test="useLineLimit != null" >
+        #{useLineLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="couponLimit != null" >
+        #{couponLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="couponValidDays != null" >
+        #{couponValidDays,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yipuhui.fastgo.enty.OpenModelConfig" >
+    update t_open_model_config
+    <set >
+      <if test="modelType != null" >
+        model_type = #{modelType,jdbcType=CHAR},
+      </if>
+      <if test="modelDescription != null" >
+        model_description = #{modelDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null" >
+        is_open = #{isOpen,jdbcType=CHAR},
+      </if>
+      <if test="couponType != null" >
+        coupon_type = #{couponType,jdbcType=VARCHAR},
+      </if>
+      <if test="useLineLimit != null" >
+        use_line_limit = #{useLineLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="couponLimit != null" >
+        coupon_limit = #{couponLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="couponValidDays != null" >
+        coupon_valid_days = #{couponValidDays,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateTime != null" >
+        operate_time = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yipuhui.fastgo.enty.OpenModelConfig" >
+    update t_open_model_config
+    set model_type = #{modelType,jdbcType=CHAR},
+      model_description = #{modelDescription,jdbcType=VARCHAR},
+      is_open = #{isOpen,jdbcType=CHAR},
+      coupon_type = #{couponType,jdbcType=VARCHAR},
+      use_line_limit = #{useLineLimit,jdbcType=DECIMAL},
+      coupon_limit = #{couponLimit,jdbcType=DECIMAL},
+      coupon_valid_days = #{couponValidDays,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      operate_time = #{operateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询开启模式配置列表 -->
+  <select id="findAllRetMapByPage" resultType="hashmap" parameterType="hashmap">
+  	SELECT 
+	  tc.id,
+	  tc.model_description modelDescription,
+	  tc.is_open isOpen,
+	  tc.coupon_type couponType,
+	  tc.use_line_limit useLineLimit,
+	  tc.coupon_limit couponLimit,
+	  tc.coupon_valid_days couponValidDays,
+	  tc.create_time createTime,
+	  tc.operate_time operateTime
+	FROM
+	  t_open_model_config tc
+	ORDER BY tc.id DESC
+	LIMIT #{startIndex},#{pageSize}
+  </select>
+  
+  <!-- 开启模式配置总数 -->
+  <select id="findAllByPageCount" resultType="long">
+  	SELECT 
+	  COUNT(1) 
+	FROM
+	  t_open_model_config
+  </select>
+  
+  <!-- 根据模式类别获取信息 -->
+  <select id="getByModelType" resultType="hashmap" parameterType="string">
+  	SELECT 
+  	  tc.model_description modelDescription,
+	  tc.is_open isOpen,
+	  tc.coupon_type couponType,
+	  tc.use_line_limit useLintLimit,
+	  tc.coupon_limit couponLimit,
+	  tc.coupon_valid_days couponValidDays 
+	FROM
+	  t_open_model_config tc
+	WHERE tc.model_type = #{modelType} 
+  </select>
+</mapper>

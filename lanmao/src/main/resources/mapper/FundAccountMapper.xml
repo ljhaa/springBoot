@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.FundAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.FundAccount" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="account_type" property="accountType" jdbcType="CHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
+    <result column="card_type" property="cardType" jdbcType="VARCHAR" />
+    <result column="card_code" property="cardCode" jdbcType="VARCHAR" />
+    <result column="available_balance" property="availableBalance" jdbcType="DECIMAL" />
+    <result column="freeze_amount" property="freezeAmount" jdbcType="DECIMAL" />
+    <result column="account_status" property="accountStatus" jdbcType="CHAR" />
+    <result column="open_date" property="openDate" jdbcType="TIMESTAMP" />
+    <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, account_type, account_name, card_type, card_code, available_balance, freeze_amount, account_status, 
+    open_date, operate_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_fund_account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_fund_account
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yipuhui.fastgo.enty.FundAccount" >
+    insert into t_fund_account (id, account_type, account_name, card_type, 
+      card_code, available_balance, freeze_amount, 
+      account_status, open_date, operate_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{accountType,jdbcType=CHAR}, #{accountName,jdbcType=VARCHAR}, #{cardType,jdbcType=VARCHAR}, 
+      #{cardCode,jdbcType=VARCHAR}, #{availableBalance,jdbcType=DECIMAL}, #{freezeAmount,jdbcType=DECIMAL}, 
+      #{accountStatus,jdbcType=CHAR}, #{openDate,jdbcType=TIMESTAMP}, #{operateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yipuhui.fastgo.enty.FundAccount" >
+    insert into t_fund_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="accountType != null" >
+        account_type,
+      </if>
+      <if test="accountName != null" >
+        account_name,
+      </if>
+      <if test="cardType != null" >
+        card_type,
+      </if>
+      <if test="cardCode != null" >
+        card_code,
+      </if>
+      <if test="availableBalance != null" >
+        available_balance,
+      </if>
+      <if test="freezeAmount != null" >
+        freeze_amount,
+      </if>
+      <if test="accountStatus != null" >
+        account_status,
+      </if>
+      <if test="openDate != null" >
+        open_date,
+      </if>
+      <if test="operateTime != null" >
+        operate_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+       <if test="accountType != null" >
+        #{accountType,jdbcType=CHAR},
+      </if>
+      <if test="accountName != null" >
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="cardCode != null" >
+        #{cardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="availableBalance != null" >
+        #{availableBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeAmount != null" >
+        #{freezeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountStatus != null" >
+        #{accountStatus,jdbcType=CHAR},
+      </if>
+      <if test="openDate != null" >
+        #{openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yipuhui.fastgo.enty.FundAccount" >
+    update t_fund_account
+    <set >
+      <if test="accountType != null" >
+        account_type = #{accountType,jdbcType=CHAR},
+      </if>
+      <if test="accountName != null" >
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        card_type = #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="cardCode != null" >
+        card_code = #{cardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="availableBalance != null" >
+        available_balance = #{availableBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeAmount != null" >
+        freeze_amount = #{freezeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountStatus != null" >
+        account_status = #{accountStatus,jdbcType=CHAR},
+      </if>
+      <if test="openDate != null" >
+        open_date = #{openDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateTime != null" >
+        operate_time = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yipuhui.fastgo.enty.FundAccount" >
+    update t_fund_account
+    set	account_type = #{accountType,jdbcType=CHAR}, 
+      account_name = #{accountName,jdbcType=VARCHAR},
+      card_type = #{cardType,jdbcType=VARCHAR},
+      card_code = #{cardCode,jdbcType=VARCHAR},
+      available_balance = #{availableBalance,jdbcType=DECIMAL},
+      freeze_amount = #{freezeAmount,jdbcType=DECIMAL},
+      account_status = #{accountStatus,jdbcType=CHAR},
+      open_date = #{openDate,jdbcType=TIMESTAMP},
+      operate_time = #{operateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询客户的资金账户信息 -->
+  <select id="findFundAccountByLenderNum" parameterType="String" resultType="HashMap">
+  	SELECT
+		(
+	    	fa.available_balance + IFNULL(fa.freeze_amount, 0.00)
+	  	) AS total_amount,
+	  	fa.available_balance,
+	  	IFNULL(fa.freeze_amount, 0.00) freeze_amount
+	FROM
+		t_lender_detail ld
+	JOIN t_fund_account fa ON fa.card_code = ld.card_num
+	WHERE
+		ld.lender_num = #{lenderNum,jdbcType=VARCHAR}
+  </select>
+  <!-- 根据lenderId查询客户账户信息 -->
+  <select id="findFundAccountInfoByLenderId" parameterType="Integer" resultType="HashMap">
+  	SELECT
+		fa.id,
+		fa.available_balance,
+		fa.freeze_amount,
+		fa.card_code,
+		fa.card_type,
+		fa.account_name
+	FROM
+		t_lender_detail ld
+	LEFT JOIN t_fund_account fa ON fa.card_code = ld.card_num
+	WHERE
+		ld.id = #{lenderId,jdbcType=INTEGER}
+  </select>
+  <!-- 更新资金账户资金 -->
+  <update id="updateFundAccountInfoByConditions" parameterType="HashMap">
+  	update t_fund_account
+    set 
+      <if test="availableBalance != null and availableBalance !=''">
+      	available_balance = available_balance + #{availableBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeAmount != null and freezeAmount !=''">
+      	freeze_amount = freeze_amount + #{freezeAmount,jdbcType=DECIMAL},
+      </if>
+      operate_time = #{operateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- * 更新冻结金额   * from lijie-->
+  <update id="updateFreezeAmountByInvestNum" parameterType="string">
+	  UPDATE 
+	  	t_fund_account fa 
+	  JOIN t_lender_detail ld 
+	    ON fa.card_code = ld.card_num 
+	  JOIN t_invest_record ir 
+	    ON ld.id = ir.lender_id 
+	  left JOIN t_lender_coupon_relation lcr 
+	    ON ir.invest_coupon_id = lcr.id 
+	  SET fa.freeze_amount = fa.freeze_amount - (ir.invest_amount - IFNULL(lcr.coupon_limit,0.00))
+	WHERE ir.invest_num = #{investNum} 
+  </update>
+  
+  <!-- * 更新资金账户表可用余额   * from lijie -->
+  <update id="updateaVailableBalanceByInvestNum" parameterType="hashmap">
+  	UPDATE 
+	  	t_fund_account fa 
+	JOIN t_lender_detail ld 
+	ON fa.card_code = ld.card_num 
+	JOIN t_invest_record ir 
+	ON ld.id = ir.lender_id 
+	SET fa.available_balance = fa.available_balance + #{redemptionMoney}
+	WHERE ir.invest_num = #{investNum} 
+  </update>
+  
+  <!-- 根据客户编号查询客户资金账户及明细信息 -->
+  <select id="findFundAccountAndDetailInfoByLenderNum" parameterType="String" resultType="HashMap">
+  	select 
+		fa.available_balance,
+		ld.lender_status,
+		ld.certification_status,
+		ld.real_name
+	from t_lender_detail ld 
+	left join t_fund_account fa on fa.card_code=ld.card_num
+	where ld.lender_num=#{lenderNum}
+  </select>
+  <!-- * 通过lenderNum查询账户可用金额  * from lijie -->
+  <select id="getAvailableBalanceByLenderNum" parameterType="java.math.BigDecimal" resultType="java.math.BigDecimal">
+  	SELECT 
+	  fa.available_balance 
+	FROM
+	  t_fund_account fa 
+	  JOIN t_lender_detail ld 
+	    ON fa.card_code = ld.card_num 
+	WHERE ld.lender_num = #{lenderNum} 
+  </select>
+  
+  <!-- * 修改账户可用余额和冻结金额通过lenderNum * from lijie-->
+  <update id="updateFundAccountByLenderNum" parameterType="hashmap">
+  	UPDATE 
+	  t_fund_account fa 
+	  JOIN t_lender_detail ld 
+	  ON fa.card_code = ld.card_num 
+	  SET fa.available_balance = IFNULL(fa.available_balance, 0) - #{amount},
+
+	  	  fa.freeze_amount = IFNULL(fa.freeze_amount, 0) + IFNULL(#{couponAmount}, 0),
+	      fa.operate_time = NOW() 
+	WHERE ld.lender_num = #{lenderNum} 
+  </update>
+  
+  <!--动态查询条件 -->
+  <sql id="dynamicPageWhere">
+  	<if test="accountName != null">
+  		AND account_name like '${accountName}%'
+  	</if>
+  	<if test="cardCode != null">
+  		AND card_code like '${cardCode}%'
+  	</if>
+  	<if test="openDateStart != null">
+  		AND DATE_FORMAT(open_date,'%Y-%m-%d') &gt;= #{openDateStart}
+  	</if>
+  	<if test="openDateEnd != null">
+  		AND DATE_FORMAT(open_date,'%Y-%m-%d') &lt;= #{openDateEnd}
+  	</if>
+  	<if test="minAvailableBalance != null">
+  		AND available_balance &gt;= #{minAvailableBalance}
+  	</if>
+  	<if test="maxAvailableBalance != null">
+  		AND available_balance &lt;= #{maxAvailableBalance}
+  	</if>
+  </sql>
+  
+  <!-- 分页获取资金账户数据 -->
+  <select id="findAllRetMapByPage" resultType="hashmap" parameterType="hashmap">
+  	SELECT 
+	  * 
+	FROM
+	  t_fund_account  
+	WHERE 1=1  
+	<include refid="dynamicPageWhere" />  
+	ORDER BY open_date DESC
+	LIMIT #{startIndex},#{pageSize}  
+  </select>
+  
+  <select id="findAllByPageCount" resultType="long" parameterType="hashmap">
+  	SELECT 
+	  COUNT(1) 
+	FROM
+	  t_fund_account
+	WHERE 1=1  
+	<include refid="dynamicPageWhere" />   
+  </select>
+  
+  <update id="updateAvailableBalanceForCoupon" parameterType="hashmap">
+  	UPDATE 
+	  	t_fund_account fa 
+	SET fa.freeze_amount = fa.freeze_amount + #{couponCash},
+	    fa.operate_time = NOW() 
+	WHERE fa.card_code = #{cardNum} 
+  </update>
+    <update id="updateAvailableBalanceForCouponX" parameterType="hashmap">
+        UPDATE
+        t_fund_account fa
+        SET fa.available_balance = fa.available_balance + #{couponCash},
+        fa.operate_time = NOW()
+        WHERE fa.card_code = #{cardNum}
+    </update>
+  
+   <update id="updateAvailableBalanceForTiyanjin" parameterType="hashmap">
+	  	UPDATE 
+		  	t_fund_account fa 
+		SET fa.available_balance = fa.available_balance + #{couponCash},
+		    fa.operate_time = NOW() 
+		WHERE fa.card_code = #{cardNum} 
+  </update>
+  
+  <!-- 根据证件号码更新冻结金额 -->
+  <update id="updateFreezeAmountByCardCode" parameterType="hashmap">
+  	UPDATE 
+	  t_fund_account fa 
+	SET
+	  fa.freeze_amount = fa.freeze_amount + #{freezeAmount} 
+	WHERE fa.card_code = #{cardCode}
+  </update>
+  
+  <!-- 根据证件号码更新可用余额 -->
+  <update id="updateAvailableBalanceByCardCode" parameterType="hashmap">
+  	UPDATE 
+	  t_fund_account 
+	SET
+	  available_balance = available_balance + #{tradeMoney}
+	WHERE card_code = #{cardNum}
+  </update>
+  
+  <update id="updateFreezeAmountByMap" parameterType="hashmap">
+  	UPDATE 
+	  t_fund_account fa 
+	SET
+	  fa.freeze_amount = fa.freeze_amount - #{tradeMoney} 
+	WHERE fa.card_code = #{cardNum}
+  </update>
+</mapper>

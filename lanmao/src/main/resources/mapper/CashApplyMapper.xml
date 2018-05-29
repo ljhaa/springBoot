@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.CashApplyMapper" >
+  <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.CashApply" >
+    <id column="cash_apply_id" property="cashApplyId" jdbcType="INTEGER" />
+    <result column="serl_num" property="serlNum" jdbcType="VARCHAR" />
+    <result column="lender_id" property="lenderId" jdbcType="INTEGER" />
+    <result column="bank_num" property="bankNum" jdbcType="VARCHAR" />
+    <result column="account_num" property="accountNum" jdbcType="VARCHAR" />
+    <result column="apply_cash_amount" property="applyCashAmount" jdbcType="DECIMAL" />
+    <result column="real_cash_amount" property="realCashAmount" jdbcType="DECIMAL" />
+    <result column="handling_charge" property="handlingCharge" jdbcType="DECIMAL" />
+    <result column="audit_status" property="auditStatus" jdbcType="CHAR" />
+    <result column="cash_status" property="cashStatus" jdbcType="CHAR" />
+    <result column="cash_way" property="cashWay" jdbcType="CHAR" />
+    <result column="fail_reason" property="failReason" jdbcType="VARCHAR" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
+    <result column="audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="auditor" property="auditor" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cash_apply_id, serl_num, lender_id, bank_num, account_num, apply_cash_amount, real_cash_amount, 
+    handling_charge, audit_status, cash_status,cash_way,fail_reason, apply_time, audit_time, 
+    auditor
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_cash_apply
+    where cash_apply_id = #{cashApplyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_cash_apply
+    where cash_apply_id = #{cashApplyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yipuhui.fastgo.enty.CashApply" >
+    insert into t_cash_apply (cash_apply_id, serl_num, lender_id, 
+      bank_num, account_num, apply_cash_amount, 
+      real_cash_amount, handling_charge, audit_status, 
+      cash_status,cash_way,fail_reason, apply_time, 
+      audit_time, auditor)
+    values (#{cashApplyId,jdbcType=INTEGER}, #{serlNum,jdbcType=VARCHAR}, #{lenderId,jdbcType=INTEGER}, 
+      #{bankNum,jdbcType=VARCHAR}, #{accountNum,jdbcType=VARCHAR}, #{applyCashAmount,jdbcType=DECIMAL}, 
+      #{realCashAmount,jdbcType=DECIMAL}, #{handlingCharge,jdbcType=DECIMAL}, #{auditStatus,jdbcType=CHAR}, 
+      #{cashStatus,jdbcType=CHAR},#{cashWay,jdbcType=CHAR},#{failReason,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}, 
+      #{auditTime,jdbcType=TIMESTAMP}, #{auditor,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yipuhui.fastgo.enty.CashApply" >
+    insert into t_cash_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cashApplyId != null" >
+        cash_apply_id,
+      </if>
+      <if test="serlNum != null" >
+        serl_num,
+      </if>
+      <if test="lenderId != null" >
+        lender_id,
+      </if>
+      <if test="bankNum != null" >
+        bank_num,
+      </if>
+      <if test="accountNum != null" >
+        account_num,
+      </if>
+      <if test="applyCashAmount != null" >
+        apply_cash_amount,
+      </if>
+      <if test="realCashAmount != null" >
+        real_cash_amount,
+      </if>
+      <if test="handlingCharge != null" >
+        handling_charge,
+      </if>
+      <if test="auditStatus != null" >
+        audit_status,
+      </if>
+      <if test="cashStatus != null" >
+        cash_status,
+      </if>
+      <if test="cashWay != null" >
+        cash_way,
+      </if>
+      <if test="failReason != null" >
+        fail_reason,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="auditor != null" >
+        auditor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cashApplyId != null" >
+        #{cashApplyId,jdbcType=INTEGER},
+      </if>
+      <if test="serlNum != null" >
+        #{serlNum,jdbcType=VARCHAR},
+      </if>
+      <if test="lenderId != null" >
+        #{lenderId,jdbcType=INTEGER},
+      </if>
+      <if test="bankNum != null" >
+        #{bankNum,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNum != null" >
+        #{accountNum,jdbcType=VARCHAR},
+      </if>
+      <if test="applyCashAmount != null" >
+        #{applyCashAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="realCashAmount != null" >
+        #{realCashAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="handlingCharge != null" >
+        #{handlingCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="auditStatus != null" >
+        #{auditStatus,jdbcType=CHAR},
+      </if>
+      <if test="cashStatus != null" >
+        #{cashStatus,jdbcType=CHAR},
+      </if>
+      <if test="cashWay != null" >
+        #{cashWay,jdbcType=CHAR},
+      </if>
+      <if test="failReason != null" >
+        #{failReason,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null" >
+        #{auditor,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yipuhui.fastgo.enty.CashApply" >
+    update t_cash_apply
+    <set >
+      <if test="serlNum != null" >
+        serl_num = #{serlNum,jdbcType=VARCHAR},
+      </if>
+      <if test="lenderId != null" >
+        lender_id = #{lenderId,jdbcType=INTEGER},
+      </if>
+      <if test="bankNum != null" >
+        bank_num = #{bankNum,jdbcType=VARCHAR},
+      </if>
+      <if test="accountNum != null" >
+        account_num = #{accountNum,jdbcType=VARCHAR},
+      </if>
+      <if test="applyCashAmount != null" >
+        apply_cash_amount = #{applyCashAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="realCashAmount != null" >
+        real_cash_amount = #{realCashAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="handlingCharge != null" >
+        handling_charge = #{handlingCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="auditStatus != null" >
+        audit_status = #{auditStatus,jdbcType=CHAR},
+      </if>
+      <if test="cashStatus != null" >
+        cash_status = #{cashStatus,jdbcType=CHAR},
+      </if>
+      <if test="cashWay != null" >
+        cash_way = #{cashWay,jdbcType=CHAR},
+      </if>
+      <if test="failReason != null" >
+        fail_reason = #{failReason,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null" >
+        auditor = #{auditor,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cash_apply_id = #{cashApplyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yipuhui.fastgo.enty.CashApply" >
+    update t_cash_apply
+    set serl_num = #{serlNum,jdbcType=VARCHAR},
+      lender_id = #{lenderId,jdbcType=INTEGER},
+      bank_num = #{bankNum,jdbcType=VARCHAR},
+      account_num = #{accountNum,jdbcType=VARCHAR},
+      apply_cash_amount = #{applyCashAmount,jdbcType=DECIMAL},
+      real_cash_amount = #{realCashAmount,jdbcType=DECIMAL},
+      handling_charge = #{handlingCharge,jdbcType=DECIMAL},
+      audit_status = #{auditStatus,jdbcType=CHAR},
+      cash_status = #{cashStatus,jdbcType=CHAR},
+      cash_way = #{cashWay,jdbcType=CHAR},
+      fail_reason = #{failReason,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      auditor = #{auditor,jdbcType=INTEGER}
+    where cash_apply_id = #{cashApplyId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <!-- 动态查询条件配置 -->
+  <sql id="dynamicPageWhere">
+  
+  	<if test="lenderDetailId !=null and lenderDetailId !=''">
+  		and ca.lender_id = #{lenderDetailId} 
+  	</if>
+  	
+  	<if test="createTimeStart != null and createTimeStart != ''" >
+        and DATE_FORMAT(ca.apply_time,'%Y-%m-%d') >= DATE_FORMAT(#{createTimeStart},'%Y-%m-%d')
+    </if>
+    <if test="createTimeEnd != null and createTimeEnd != ''" >
+	      <![CDATA[
+	        and DATE_FORMAT(ca.apply_time,'%Y-%m-%d') <= DATE_FORMAT(#{createTimeEnd},'%Y-%m-%d')
+		  ]]>
+    </if>
+    
+    <if test="serlNum !=null and serlNum !=''">
+  		and ca.serl_num like CONCAT('%',#{serlNum},'%' ) 
+  	</if>
+    <if test="cashAmountStart != null and cashAmountStart != ''" >
+        and ca.apply_cash_amount >= #{cashAmountStart}
+    </if>
+    <if test="cashAmountEnd != null and cashAmountEnd != ''" >
+	      <![CDATA[
+	       and ca.apply_cash_amount <= #{cashAmountEnd}
+		  ]]>
+    </if>
+    <if test="cashStatus !=null and cashStatus !=''">
+  		and ca.cash_status = #{cashStatus} 
+  	</if>
+    <if test="cashWay !=null and cashWay !=''">
+  		and ca.cash_way = #{cashWay} 
+  	</if>
+  	<if test="auditStatus !=null and auditStatus !=''">
+  		and ca.audit_status = #{auditStatus} 
+  	</if>
+  	
+  	<if test="realName !=null and realName !=''">
+  		and ld.real_name like CONCAT('%', #{realName},'%' ) 
+  	</if>
+  	
+  	<if test="cardNum != null and cardNum != '' ">
+  		and ld.card_num=#{cardNum,jdbcType=VARCHAR}
+  	</if>
+  </sql>   
+  <!-- 分页查询提现记录【数据】 -->
+  <select id="findCashApplyData"  parameterType="HashMap" resultType="HashMap">
+  	SELECT
+		ca.cash_apply_id,
+		ca.apply_cash_amount,
+		ca.apply_time,
+		ca.audit_time,
+		ca.real_cash_amount,
+		ca.cash_status,
+		(select sd.dict_name from system_dict sd where sd.dict_type = 'REGISTER_WAY' and sd.dict_code = ca.cash_way) cash_way_name,
+		sd1.dict_name as cash_status_name,
+		ca.audit_status, 
+		sd2.dict_name as audit_status_name,
+		ca.fail_reason,
+		ca.lender_id,
+		ca.account_num,
+		ca.handling_charge,
+		ca.serl_num,
+		ca.bank_num,
+		sd.dict_name as cash_bank_name,
+		ld.real_name,
+		ld.card_num,
+		ll.nick_name,
+		se.name as auditor_name
+	FROM t_cash_apply ca
+	JOIN system_dict sd on sd.dict_type='THIRD_BANK' AND sd.dict_code = ca.bank_num
+	JOIN system_dict sd1 on sd1.dict_type='CASH_STATUS' AND sd1.dict_code = ca.cash_status
+  	JOIN system_dict sd2 on sd2.dict_type='AUDIT_STATUS' AND sd2.dict_code = ca.audit_status
+	JOIN t_lender_detail ld on ld.id = ca.lender_id
+	JOIN t_lender_login ll on ll.id = ld.lender_login_id
+	LEFT JOIN ssm_employee se on se.employee_id = ca.auditor
+	WHERE
+		1 = 1
+	<include refid="dynamicPageWhere"/>
+	ORDER BY ca.apply_time desc 
+	<if test="startIndex != null and pageSize != null" >
+     LIMIT #{startIndex},#{pageSize}
+    </if> 
+  </select>
+  <!-- 分页查询提现记录【计数】 -->
+  <select id="findCashApplyCount"  parameterType="HashMap" resultType="Long">
+  	SELECT 
+		count(*)
+	FROM t_cash_apply ca
+	JOIN system_dict sd on sd.dict_type='THIRD_BANK' AND sd.dict_code = ca.bank_num
+	JOIN system_dict sd1 on sd1.dict_type='CASH_STATUS' AND sd1.dict_code = ca.cash_status
+  	JOIN system_dict sd2 on sd2.dict_type='AUDIT_STATUS' AND sd2.dict_code = ca.audit_status
+	LEFT JOIN t_lender_detail ld on ld.id = ca.lender_id
+	LEFT JOIN t_lender_login ll on ll.id = ld.lender_login_id
+	LEFT JOIN ssm_employee se on se.employee_id = ca.auditor
+	WHERE 1 = 1 
+	<include refid="dynamicPageWhere"/>	
+  </select>
+  
+  <select id="findCashApplyBySerlNum" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List"/>
+  from t_cash_apply where 1=1 
+  <if test="serlNum != null and serlNum != ''">
+  	and serl_num = #{serlNum}
+  </if>
+  
+  <if test="cashStatus != null and cashStatus != ''">
+  	and cash_status=#{cashStatus}
+  </if>
+  
+  <!--  serl_num = #{serlNum} and cash_status=#{cashStatus}; -->
+  </select>
+    <select id="cashApplyBySerlNum" resultMap="BaseResultMap">
+  select 
+  <include refid="Base_Column_List"/>
+  from t_cash_apply where serl_num = #{serlNum} ;
+  </select>
+  
+  <update id="updataCashApplyBySerlNum" parameterType="java.util.HashMap" >
+  update t_cash_apply set audit_status=#{auditStatus},cash_status=#{newCashStatus} where serl_num = #{SerlNum} and cash_status = #{cashStatus}
+  </update>
+ <select id="findCashApplyByTime" resultMap="BaseResultMap">
+ select 
+  <include refid="Base_Column_List"/>
+  from t_cash_apply where  cash_status=#{cashStatus} and DATE_FORMAT(#{date},'%Y-%m-%d %H:%i:%s')>=apply_time;
+ </select>
+ 
+ <!-- 充值对账分页查询 -->
+ <!-- <select id="findCashReconciliation" parameterType="HashMap" resultType="HashMap">
+ 	SELECT
+ 		distinct ca.serl_num,
+		ca.cash_apply_id,
+		ca.lender_id,
+		ca.bank_num,
+		ca.account_num,
+		ca.apply_cash_amount,
+		ca.real_cash_amount,
+		ca.handling_charge,
+		ca.audit_status,
+		ca.cash_status,
+		ca.cash_way,
+		ca.fail_reason,
+		ca.apply_time,
+		ca.audit_time,
+		ca.auditor,
+		sd1.dict_name as cash_status_name,
+		ld.real_name,
+		sd.dict_name AS cash_bank,
+		ld.card_num,
+		ld.mobile
+	FROM t_cash_apply ca
+	JOIN t_lender_detail ld ON ld.id = ca.lender_id
+	JOIN system_dict sd ON sd.dict_code = ca.bank_num AND sd.dict_type = 'GATEWAY_BANK'
+	JOIN system_dict sd1 on sd1.dict_code = ca.cash_status AND  sd1.dict_type='CASH_STATUS'
+	WHERE 1= 1
+  	<include refid="dynamicPageWhere"/>
+  	order by ca.apply_time desc
+  	<if test="startIndex != null and pageSize != null">
+  		limit #{startIndex},#{pageSize}	
+  	</if>
+ </select> -->
+ <!-- 充值对账分页查询  -->
+ <select id="findCashReconciliation" parameterType="HashMap" resultType="HashMap">
+ 	select distinct serl_num,
+  					cash_apply_id,
+  					cash_status,
+  					apply_cash_amount,
+  					apply_time
+  from (select distinct ca.serl_num,
+  						ca.cash_apply_id,
+  						ca.cash_status,
+  						ca.apply_cash_amount,
+  						ca.apply_time
+  	from t_cash_apply ca
+	where (select count(1) from t_third_reconciliation tr where tr.local_serl_num = ca.serl_num and tr.type=#{type} and tr.trade_status='0000') = 0
+union
+select distinct ca.serl_num,
+				ca.cash_apply_id,
+				ca.cash_status,
+				ca.apply_cash_amount,
+				ca.apply_time
+	from  t_cash_apply ca join t_third_reconciliation tr on tr.local_serl_num = ca.serl_num
+	where tr.amount != ca.apply_cash_amount and tr.type=#{type}	and tr.trade_status='0000'
+	) t
+
+	WHERE 1= 1
+  	<if test="createTimeStart != null and createTimeStart != ''" >
+        and DATE_FORMAT(t.apply_time,'%Y-%m-%d') >= DATE_FORMAT(#{createTimeStart},'%Y-%m-%d')
+    </if>
+    <if test="createTimeEnd != null and createTimeEnd != ''" >
+	      <![CDATA[
+	        and DATE_FORMAT(t.apply_time,'%Y-%m-%d') <= DATE_FORMAT(#{createTimeEnd},'%Y-%m-%d')
+		  ]]>
+    </if>
+    <if test="cashStatus !=null and cashStatus !=''">
+  		and t.cash_status = #{cashStatus} 
+  	</if>
+  	order by t.apply_time desc
+  	<if test="startIndex != null and pageSize != null">
+  		limit #{startIndex},#{pageSize}	
+  	</if>
+  	
+ </select>
+ 
+   <!-- 动态查询条件配置 -->
+  <sql id="dynamicPageWhere2">
+  		<if test="tradeDateStart != null and tradeDateStart != ''" >
+        and DATE_FORMAT(ca.apply_time ,'%Y-%m-%d') >= DATE_FORMAT(#{tradeDateStart},'%Y-%m-%d')
+    </if>
+    <if test="tradeDateEnd != null and tradeDateEnd != ''" >
+	      <![CDATA[
+	        and DATE_FORMAT(ca.apply_time ,'%Y-%m-%d') <= DATE_FORMAT(#{tradeDateEnd},'%Y-%m-%d')
+		  ]]>
+    </if>
+     <if test="cashStatus !=null and cashStatus !=''">
+  		and ca.cash_status = #{cashStatus} 
+  	</if>
+  </sql> 
+ 
+ <!-- 按条件查询提现对账记录【计数】 -->
+  <!-- <select id="findCashReconciliationCount" parameterType="HashMap" resultType="Long">
+  	select count(distinct ca.serl_num)
+	from t_cash_apply ca
+	JOIN t_lender_detail ld ON ld.id = ca.lender_id
+	JOIN system_dict sd ON sd.dict_code = ca.bank_num AND sd.dict_type = 'GATEWAY_BANK'
+	JOIN system_dict sd1 on sd1.dict_code = ca.cash_status AND  sd1.dict_type='CASH_STATUS'
+	WHERE 1= 1
+  	<include refid="dynamicPageWhere"/>
+  </select> -->
+  <!-- 按条件查询提现对账记录【计数】 -->
+  <select id="findCashReconciliationCount" parameterType="HashMap" resultType="Long">
+  select count(serl_num)
+ 	from (select distinct ca.serl_num,
+  						ca.cash_apply_id,
+  						ca.cash_status,
+  						ca.apply_cash_amount,
+  						ca.apply_time
+  	from t_cash_apply ca
+	where (select count(1) from t_third_reconciliation tr where tr.local_serl_num = ca.serl_num and tr.type=#{type} and tr.trade_status='0000') = 0
+union
+	select distinct ca.serl_num,
+				ca.cash_apply_id,
+				ca.cash_status,
+				ca.apply_cash_amount,
+				ca.apply_time
+	from t_third_reconciliation tr join t_cash_apply ca on tr.local_serl_num = ca.serl_num
+	where tr.amount != ca.apply_cash_amount and tr.type=#{type}	and tr.trade_status='0000'
+	) t
+	where 1=1
+	<if test="createTimeStart != null and createTimeStart != ''" >
+        and DATE_FORMAT(t.apply_time,'%Y-%m-%d') >= DATE_FORMAT(#{createTimeStart},'%Y-%m-%d')
+    </if>
+    <if test="createTimeEnd != null and createTimeEnd != ''" >
+	      <![CDATA[
+	        and DATE_FORMAT(t.apply_time,'%Y-%m-%d') <= DATE_FORMAT(#{createTimeEnd},'%Y-%m-%d')
+		  ]]>
+    </if>
+    <if test="cashStatus !=null and cashStatus !=''">
+  		and t.cash_status = #{cashStatus} 
+  	</if>
+   </select>
+  <!-- 我方存在三方不存在  切记 1-->
+  <select id="findLocalIsExitsError" parameterType="HashMap" resultType="String">
+  	select distinct ca.serl_num
+  	from t_cash_apply ca
+	where (select count(1) from t_third_reconciliation tr where tr.local_serl_num = ca.serl_num and tr.type=#{type} and tr.trade_status='0000') = 0
+	<include refid="dynamicPageWhere2"/>
+	 order by ca.apply_time desc 
+  </select>
+  <!-- 三方存在我方不存在  切记 1-->
+  <select id="findThirdIsExitsError" parameterType="HashMap" resultType="String">
+  	select distinct tr.local_serl_num
+	from t_third_reconciliation tr 
+	where (select count(1) from t_cash_apply ca where ca.serl_num = tr.local_serl_num) = 0 and tr.type=#{type} and tr.trade_status='0000'
+	<if test="tradeDateStart != null and tradeDateStart != ''" >
+        and DATE_FORMAT(tr.trade_time ,'%Y-%m-%d') >= DATE_FORMAT(#{tradeDateStart},'%Y-%m-%d')
+    </if>
+    <if test="tradeDateEnd != null and tradeDateEnd != ''" >
+	      <![CDATA[
+	        and DATE_FORMAT(tr.trade_time ,'%Y-%m-%d') <= DATE_FORMAT(#{tradeDateEnd},'%Y-%m-%d')
+		  ]]>
+    </if>
+   order by tr.trade_time desc
+  </select>
+ 
+  <!-- 记录相同金额不同  切记 1-->
+  <select id="findAmountError" parameterType="HashMap" resultType="String">
+  	select distinct tr.local_serl_num
+	from t_third_reconciliation tr join t_cash_apply ca on tr.local_serl_num = ca.serl_num
+	where tr.amount != ca.apply_cash_amount and tr.type=#{type} and tr.trade_status='0000'
+	<include refid="dynamicPageWhere2"/>
+	order by tr.trade_time desc
+  </select>
+ 
+ <!-- 提现对账总金额  切记 2-->
+ <select id="findAmountSum" parameterType="HashMap" resultType="java.math.BigDecimal">
+ 	select sum(apply_cash_amount)
+ 	from (select distinct ca.serl_num,
+  						ca.cash_apply_id,
+  						ca.cash_status,
+  						ca.apply_cash_amount,
+  						ca.apply_time
+  	from t_cash_apply ca
+	where (select count(1) from t_third_reconciliation tr where tr.local_serl_num = ca.serl_num and tr.type=#{type} and tr.trade_status='0000') = 0
+union
+	select distinct ca.serl_num,
+				ca.cash_apply_id,
+				ca.cash_status,
+				ca.apply_cash_amount,
+				ca.apply_time
+	from t_third_reconciliation tr join t_cash_apply ca on tr.local_serl_num = ca.serl_num
+	where tr.amount != ca.apply_cash_amount and tr.type=#{type}	and tr.trade_status='0000'
+	) t
+	where 1=1
+	<if test="tradeDateStart != null and tradeDateStart != ''" >
+        and DATE_FORMAT(t.apply_time ,'%Y-%m-%d') >= DATE_FORMAT(#{tradeDateStart},'%Y-%m-%d')
+    </if>
+    <if test="tradeDateEnd != null and tradeDateEnd != ''" >
+	      <![CDATA[
+	        and DATE_FORMAT(t.apply_time ,'%Y-%m-%d') <= DATE_FORMAT(#{tradeDateEnd},'%Y-%m-%d')
+		  ]]>
+    </if>
+     <if test="cashStatus !=null and cashStatus !=''">
+  		and t.cash_status = #{cashStatus} 
+  	</if>
+ </select>
+ 
+
+            <!-- 要求所有状态为5的提现记录不参与对账 -->
+    <select id="fundCashApplyByTimeAndStatus" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_cash_apply WHERE
+        DATE_FORMAT(#{date},'%Y-%m-%d')=DATE_FORMAT(apply_time,'%Y-%m-%d')
+        AND cash_status not IN ("5")
+    </select>
+
+
+</mapper>

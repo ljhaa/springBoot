@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.SmsInterfaceLogMapper" >
+  <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.SmsInterfaceLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="model_type" property="modelType" jdbcType="VARCHAR" />
+    <result column="mobiles" property="mobiles" jdbcType="VARCHAR" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="send_level" property="sendLevel" jdbcType="INTEGER" />
+    <result column="oper_state" property="operState" jdbcType="VARCHAR" />
+    <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, model_type, mobiles, msg, title, send_level, oper_state, send_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sms_interface_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_sms_interface_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yipuhui.fastgo.enty.SmsInterfaceLog" >
+    insert into t_sms_interface_log (id, model_type, mobiles, 
+      msg, title, send_level, 
+      oper_state, send_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{modelType,jdbcType=VARCHAR}, #{mobiles,jdbcType=VARCHAR}, 
+      #{msg,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{sendLevel,jdbcType=INTEGER}, 
+      #{operState,jdbcType=VARCHAR}, #{sendTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yipuhui.fastgo.enty.SmsInterfaceLog" >
+    insert into t_sms_interface_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="modelType != null" >
+        model_type,
+      </if>
+      <if test="mobiles != null" >
+        mobiles,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="sendLevel != null" >
+        send_level,
+      </if>
+      <if test="operState != null" >
+        oper_state,
+      </if>
+      <if test="sendTime != null" >
+        send_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="modelType != null" >
+        #{modelType,jdbcType=VARCHAR},
+      </if>
+      <if test="mobiles != null" >
+        #{mobiles,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="sendLevel != null" >
+        #{sendLevel,jdbcType=INTEGER},
+      </if>
+      <if test="operState != null" >
+        #{operState,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yipuhui.fastgo.enty.SmsInterfaceLog" >
+    update t_sms_interface_log
+    <set >
+      <if test="modelType != null" >
+        model_type = #{modelType,jdbcType=VARCHAR},
+      </if>
+      <if test="mobiles != null" >
+        mobiles = #{mobiles,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="sendLevel != null" >
+        send_level = #{sendLevel,jdbcType=INTEGER},
+      </if>
+      <if test="operState != null" >
+        oper_state = #{operState,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yipuhui.fastgo.enty.SmsInterfaceLog" >
+    update t_sms_interface_log
+    set model_type = #{modelType,jdbcType=VARCHAR},
+      mobiles = #{mobiles,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      send_level = #{sendLevel,jdbcType=INTEGER},
+      oper_state = #{operState,jdbcType=VARCHAR},
+      send_time = #{sendTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 动态查询语句 -->
+  <sql id="dynamicPageWhere">
+  	<if test="mobiles != null">
+  		and mobiles = #{mobiles}
+  	</if>
+  	<if test="sendTimeStart != null">
+  		and DATE_FORMAT(send_time,'%Y-%m-%d') >= DATE_FORMAT(#{sendTimeStart},'%Y-%m-%d')
+  	</if>
+  	<if test="sendTimeEnd != null">
+  	<![CDATA[
+  		and DATE_FORMAT(send_time,'%Y-%m-%d') <= DATE_FORMAT(#{sendTimeEnd},'%Y-%m-%d')
+  	]]>
+  	</if>
+  	<if test="modelType != null">
+  		and model_type = #{modelType}
+  	</if>
+  	<if test="operState != null">
+  		and oper_state = #{operState}
+  	</if>
+  </sql>
+  
+  <!-- 分页获取短信接口日志 -->
+  <select id="findAllRetMapByPage" resultType="hashmap" parameterType="hashmap">
+	SELECT 
+	  tl.`id`,
+	  sd.`dict_name` model_type,
+	  tl.`mobiles`,
+	  tl.`msg`,
+	  tl.`title`,
+	  tl.`send_level`,
+	  tl.`oper_state`,
+	  tl.`send_time` 
+	FROM
+	  t_sms_interface_log tl, system_dict sd
+	WHERE sd.`dict_type` = 'SMS_MODEL_TYPE' AND sd.`dict_code` = tl.`model_type`   
+	<include refid="dynamicPageWhere" />  
+	ORDER BY tl.`id` DESC 
+	LIMIT #{startIndex},#{pageSize}
+  </select>
+  
+  <!-- 获取短信接口日志记录数 -->
+  <select id="findAllByPageCount" resultType="long">
+  	SELECT COUNT(id) FROM t_sms_interface_log tl, system_dict sd
+	WHERE sd.`dict_type` = 'SMS_MODEL_TYPE' AND sd.`dict_code` = tl.`model_type`
+  	<include refid="dynamicPageWhere" />
+  </select>
+  
+  <!-- * 查询需要再次发送的日志记录  * from lijie -->
+  <select id="selectResendSmsInterfaceLog" resultMap="BaseResultMap">
+  	SELECT 
+  	  sil.id,
+	  sil.model_type,
+	  sil.mobiles,
+	  sil.msg,
+	  sil.send_level
+	FROM
+	  t_sms_interface_log sil 
+	WHERE sil.oper_state = 'false'
+  </select>
+</mapper>

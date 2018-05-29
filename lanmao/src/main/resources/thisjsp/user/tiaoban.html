@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>排班</title>
+    <link rel="stylesheet" type="text/css" href="../static/scripts/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/scripts/icon.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="../demo.css">-->
+    <script type="text/javascript" src="../static/scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/scripts/jquery.easyui.min.js"></script>
+</head>
+<body>
+
+<div style="margin:20px 0;"></div>
+<div class="easyui-layout" style="width:1500px;height:890px;">
+    <div data-options="region:'north'" style="height:120px">
+
+        <div>
+
+            <form>
+
+                <input type="hidden" id="zhiban_id" name="id"/>
+                <table>
+                    <tr>
+                        <td> 申请调班人姓名 :</td>
+                        <td id="zhiban_name"></td>
+                    </tr>
+                    <tr>
+                        <td> 应值班日期 :</td>
+                        <td id="zhiban_date"></td>
+                    </tr>
+
+                </table>
+
+
+            </form>
+        </div>
+
+    </div>
+    <!--<div data-options="region:'south',split:true" style="height:50px;"></div>-->
+    <!--<div data-options="region:'east',split:true" title="East" style="width:100px;"></div>-->
+    <!--<div data-options="region:'west',split:true" title="West" style="width:100px;"></div>-->
+    <div data-options="region:'center',title:'排班计划',iconCls:'icon-ok'">
+        <table id="datagrid"></table>
+    </div>
+</div>
+
+</body>
+<script>
+    $(function () {
+        $.ajax({
+            type: 'post',
+            url: '/user/show',
+
+
+            success: function (data, status) {
+
+                var str = '';
+
+
+                $("#zhiban_id").val(data[0].id);
+                $("#zhiban_name").html(data[0].name);
+                $("#zhiban_date").html(data[0].paibanDeta);
+
+
+            },
+            complete: function (XMLHttpRequest, textStatus) {
+
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+
+
+    });
+
+</script>
+
+<script>
+    $(function () {
+        $('#datagrid').datagrid({
+            toolbar: '#tb',
+            method: 'post',
+            url: '/user/show',
+            columns: [[
+
+                {field: 'id', title: '值班人id', width: '100', align: 'center'},
+                {field: 'name', title: '姓名', width: '100', align: 'center'},
+                {field: 'paibanSum', title: '值班次数', width: '100', align: 'center'},
+                {field: 'paibanDeta', title: '值班日期', width: '100', align: 'center'},
+                {field: 'test', title: '申请换班', width: '100', align: 'center',
+                    formatter: function (value) {
+                        return "换班";
+                    }
+                }]],
+            onClickRow: function (index, row) {
+                huanban(row.id);
+            },
+            idField: 'id',
+            loadMsg: 'Processing, please wait …',
+            pagination: false
+        });
+
+    });
+
+</script>
+
+<script>
+    function huanban(id) {
+
+        var qingqiu = $("#zhiban_id").val();
+
+        $.ajax({
+            type: 'post',
+            url: '/user/huanban',
+            data: {
+                id: id,
+                qingqiu: qingqiu
+            },
+
+            success: function (data, status) {
+
+                alert(data.msg);
+                window.location.href = "/user/index.html";
+
+            },
+            error: function (data) {
+
+                $("#msg").html(data.msg);
+            }
+
+        });
+    }
+
+</script>
+</html>

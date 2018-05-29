@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.SettleNoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.SettleNotice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="serlNum" property="serlnum" jdbcType="VARCHAR" />
+    <result column="idNo" property="idno" jdbcType="VARCHAR" />
+    <result column="accNum" property="accnum" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="noticeTime" property="noticetime" jdbcType="TIMESTAMP" />
+    <result column="clientCode" property="clientcode" jdbcType="VARCHAR" />
+    <result column="serviceType" property="servicetype" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yipuhui.fastgo.enty.SettleNoticeWithBlobs" extends="BaseResultMap" >
+    <result column="noticeData" property="noticedata" jdbcType="LONGVARCHAR" />
+    <result column="responseData" property="responsedata" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, serlNum, idNo, accNum, status, noticeTime, clientCode, serviceType
+  </sql>
+  <sql id="Blob_Column_List" >
+    noticeData, responseData
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yipuhui.fastgo.enty.SettleNoticeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from paycenter.settle_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yipuhui.fastgo.enty.SettleNoticeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from paycenter.settle_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from paycenter.settle_notice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from paycenter.settle_notice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yipuhui.fastgo.enty.SettleNoticeExample" >
+    delete from paycenter.settle_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yipuhui.fastgo.enty.SettleNoticeWithBlobs" >
+    insert into paycenter.settle_notice (id, serlNum, idNo, 
+      accNum, status, noticeTime, 
+      clientCode, serviceType, noticeData, 
+      responseData)
+    values (#{id,jdbcType=INTEGER}, #{serlnum,jdbcType=VARCHAR}, #{idno,jdbcType=VARCHAR}, 
+      #{accnum,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{noticetime,jdbcType=TIMESTAMP}, 
+      #{clientcode,jdbcType=VARCHAR}, #{servicetype,jdbcType=VARCHAR}, #{noticedata,jdbcType=LONGVARCHAR}, 
+      #{responsedata,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yipuhui.fastgo.enty.SettleNoticeWithBlobs" >
+    insert into paycenter.settle_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="serlnum != null" >
+        serlNum,
+      </if>
+      <if test="idno != null" >
+        idNo,
+      </if>
+      <if test="accnum != null" >
+        accNum,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="noticetime != null" >
+        noticeTime,
+      </if>
+      <if test="clientcode != null" >
+        clientCode,
+      </if>
+      <if test="servicetype != null" >
+        serviceType,
+      </if>
+      <if test="noticedata != null" >
+        noticeData,
+      </if>
+      <if test="responsedata != null" >
+        responseData,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serlnum != null" >
+        #{serlnum,jdbcType=VARCHAR},
+      </if>
+      <if test="idno != null" >
+        #{idno,jdbcType=VARCHAR},
+      </if>
+      <if test="accnum != null" >
+        #{accnum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="noticetime != null" >
+        #{noticetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientcode != null" >
+        #{clientcode,jdbcType=VARCHAR},
+      </if>
+      <if test="servicetype != null" >
+        #{servicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="noticedata != null" >
+        #{noticedata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="responsedata != null" >
+        #{responsedata,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yipuhui.fastgo.enty.SettleNoticeExample" resultType="java.lang.Integer" >
+    select count(*) from paycenter.settle_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update paycenter.settle_notice
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.serlnum != null" >
+        serlNum = #{record.serlnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idno != null" >
+        idNo = #{record.idno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accnum != null" >
+        accNum = #{record.accnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticetime != null" >
+        noticeTime = #{record.noticetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.clientcode != null" >
+        clientCode = #{record.clientcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicetype != null" >
+        serviceType = #{record.servicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.noticedata != null" >
+        noticeData = #{record.noticedata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.responsedata != null" >
+        responseData = #{record.responsedata,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update paycenter.settle_notice
+    set id = #{record.id,jdbcType=INTEGER},
+      serlNum = #{record.serlnum,jdbcType=VARCHAR},
+      idNo = #{record.idno,jdbcType=VARCHAR},
+      accNum = #{record.accnum,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      noticeTime = #{record.noticetime,jdbcType=TIMESTAMP},
+      clientCode = #{record.clientcode,jdbcType=VARCHAR},
+      serviceType = #{record.servicetype,jdbcType=VARCHAR},
+      noticeData = #{record.noticedata,jdbcType=LONGVARCHAR},
+      responseData = #{record.responsedata,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update paycenter.settle_notice
+    set id = #{record.id,jdbcType=INTEGER},
+      serlNum = #{record.serlnum,jdbcType=VARCHAR},
+      idNo = #{record.idno,jdbcType=VARCHAR},
+      accNum = #{record.accnum,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      noticeTime = #{record.noticetime,jdbcType=TIMESTAMP},
+      clientCode = #{record.clientcode,jdbcType=VARCHAR},
+      serviceType = #{record.servicetype,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yipuhui.fastgo.enty.SettleNoticeWithBlobs" >
+    update paycenter.settle_notice
+    <set >
+      <if test="serlnum != null" >
+        serlNum = #{serlnum,jdbcType=VARCHAR},
+      </if>
+      <if test="idno != null" >
+        idNo = #{idno,jdbcType=VARCHAR},
+      </if>
+      <if test="accnum != null" >
+        accNum = #{accnum,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="noticetime != null" >
+        noticeTime = #{noticetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientcode != null" >
+        clientCode = #{clientcode,jdbcType=VARCHAR},
+      </if>
+      <if test="servicetype != null" >
+        serviceType = #{servicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="noticedata != null" >
+        noticeData = #{noticedata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="responsedata != null" >
+        responseData = #{responsedata,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yipuhui.fastgo.enty.SettleNoticeWithBlobs" >
+    update paycenter.settle_notice
+    set serlNum = #{serlnum,jdbcType=VARCHAR},
+      idNo = #{idno,jdbcType=VARCHAR},
+      accNum = #{accnum,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      noticeTime = #{noticetime,jdbcType=TIMESTAMP},
+      clientCode = #{clientcode,jdbcType=VARCHAR},
+      serviceType = #{servicetype,jdbcType=VARCHAR},
+      noticeData = #{noticedata,jdbcType=LONGVARCHAR},
+      responseData = #{responsedata,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yipuhui.fastgo.enty.SettleNotice" >
+    update paycenter.settle_notice
+    set serlNum = #{serlnum,jdbcType=VARCHAR},
+      idNo = #{idno,jdbcType=VARCHAR},
+      accNum = #{accnum,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      noticeTime = #{noticetime,jdbcType=TIMESTAMP},
+      clientCode = #{clientcode,jdbcType=VARCHAR},
+      serviceType = #{servicetype,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

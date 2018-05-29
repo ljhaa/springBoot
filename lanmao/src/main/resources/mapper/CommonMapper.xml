@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.CommonMapper" >
+	<!-- 根据sql查询，获取map -->
+	<select id="findBySql" resultType="hashmap" parameterType="java.lang.String">
+		${_parameter}
+	</select>
+	
+	<!-- 根据sql查询list -->
+	<select id="findListBySql" resultType="hashmap" parameterType="java.lang.String">
+		${_parameter}
+	</select>
+	
+	<!-- 根据sql查询个数 -->
+	<select id="findCountBySql" resultType="java.lang.Integer" parameterType="java.lang.String">
+		${_parameter}
+	</select>
+	
+	<!-- 根据sql查询个数，目测和上面的方法没太大区别 -->
+	<select id="getCountsBySql" resultType="java.lang.Long" parameterType="java.lang.String">
+		${_parameter}
+	</select>
+	
+	<!-- 根据sql获取字符属性 -->
+	<select id="findFieldsBySql" resultType="java.lang.String" parameterType="java.lang.String">
+		${_parameter}
+	</select>
+	
+	<!-- 根据sql获取字符属性 -->
+	<select id="findSingleField" resultType="java.lang.String" parameterType="java.lang.String">
+		${_parameter}
+	</select>
+	
+	<!-- 根据sql执行插入操作 -->
+	<insert id="insertBySql" parameterType="java.lang.String">
+	 ${_parameter}
+	</insert>
+	
+	<!-- 执行insert操作，并返还该数据id -->
+	<insert id="insertByMapReturnId" parameterType="hashmap"  useGeneratedKeys="true" keyProperty="id">
+	  ${sql}
+	</insert>
+	
+	<!-- 根据sql执行update操作 -->
+	<update id="updateBySql" parameterType="java.lang.String">
+	   ${_parameter}
+	</update>
+	
+	<!-- 根据sql执行删除操作 -->
+	<delete id="deleteBySql" parameterType="java.lang.String">
+		${_parameter}
+	</delete>
+</mapper>

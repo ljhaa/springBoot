@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.FundAccountHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.FundAccountHistory" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="serl_num" property="serlNum" jdbcType="VARCHAR" />
+    <result column="card_code" property="cardCode" jdbcType="VARCHAR" />
+    <result column="account_type" property="accountType" jdbcType="CHAR" />
+    <result column="trade_subject" property="tradeSubject" jdbcType="VARCHAR" />
+    <result column="trade_type" property="tradeType" jdbcType="CHAR" />
+    <result column="trade_money" property="tradeMoney" jdbcType="DECIMAL" />
+    <result column="trade_time" property="tradeTime" jdbcType="TIMESTAMP" />
+    <result column="system_code" property="systemCode" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, serl_num, card_code, account_type, trade_subject, trade_type, trade_money, trade_time, system_code, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_fund_account_history
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_fund_account_history
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yipuhui.fastgo.enty.FundAccountHistory" >
+    insert into t_fund_account_history (id, serl_num, card_code, account_type, trade_subject, trade_type, 
+      trade_money, trade_time, system_code, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{serlNum,jdbcType=VARCHAR}, #{cardCode,jdbcType=VARCHAR}, 
+      #{accountType,jdbcType=CHAR}, #{tradeSubject,jdbcType=VARCHAR}, #{tradeType,jdbcType=CHAR}, 
+      #{tradeMoney,jdbcType=DECIMAL}, #{tradeTime,jdbcType=TIMESTAMP}, #{systemCode,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yipuhui.fastgo.enty.FundAccountHistory" >
+    insert into t_fund_account_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="serlNum != null" >
+        serl_num,
+      </if>
+      <if test="cardCode != null" >
+        card_code,
+      </if>
+      <if test="accountType != null" >
+        account_type,
+      </if>
+      <if test="tradeSubject != null" >
+        trade_subject,
+      </if>
+      <if test="tradeType != null" >
+        trade_type,
+      </if>
+      <if test="tradeMoney != null" >
+        trade_money,
+      </if>
+      <if test="tradeTime != null" >
+        trade_time,
+      </if>
+      <if test="systemCode != null" >
+        system_code,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serlNum != null" >
+        REPLACE(UUID(), '-', ''),
+      </if>
+      <if test="cardCode != null" >
+        #{cardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null" >
+        #{accountType,jdbcType=CHAR},
+      </if>
+      <if test="tradeSubject != null" >
+        #{tradeSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeType != null" >
+        #{tradeType,jdbcType=CHAR},
+      </if>
+      <if test="tradeMoney != null" >
+        #{tradeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTime != null" >
+        #{tradeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="systemCode != null" >
+        #{systemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yipuhui.fastgo.enty.FundAccountHistory" >
+    update t_fund_account_history
+    <set >
+      <if test="serlNum != null" >
+        serl_num = #{serlNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cardCode != null" >
+        card_code = #{cardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null" >
+        account_type = #{accountType,jdbcType=CHAR},
+      </if>
+      <if test="tradeSubject != null" >
+        trade_subject = #{tradeSubject,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeType != null" >
+        trade_type = #{tradeType,jdbcType=CHAR},
+      </if>
+      <if test="tradeMoney != null" >
+        trade_money = #{tradeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeTime != null" >
+        trade_time = #{tradeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="systemCode != null" >
+        system_code = #{systemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yipuhui.fastgo.enty.FundAccountHistory" >
+    update t_fund_account_history
+    set serl_num = #{serlNum,jdbcType=VARCHAR},
+      card_code = #{cardCode,jdbcType=VARCHAR},
+      account_type = #{accountType,jdbcType=CHAR},
+      trade_subject = #{tradeSubject,jdbcType=VARCHAR},
+      trade_type = #{tradeType,jdbcType=CHAR},
+      trade_money = #{tradeMoney,jdbcType=DECIMAL},
+      trade_time = #{tradeTime,jdbcType=TIMESTAMP},
+      system_code = #{systemCode,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 动态查询条件 -->
+  <sql id="dynamicPageWhere">
+  	<if test="tradeType != null">
+  		AND trade_subject = #{tradeType}
+  	</if>
+  	<if test="beginTime != null">
+  		AND DATE_FORMAT(trade_time,'%Y-%m-%d') &gt;= #{beginTime}
+ 	</if>
+ 	<if test="endTime != null">
+  		AND DATE_FORMAT(trade_time,'%Y-%m-%d') &lt;= #{endTime}
+ 	</if>
+  </sql>
+  
+  <!-- 收支明细分页查询 -->
+  <select id="findAllRetMapByPage" parameterType="hashmap" resultType="hashmap">
+  	SELECT 
+	  th.`trade_time` tradeTime,
+	  (select sd.dict_name from system_dict sd where sd.dict_type = 'MODULES_CATEGORY' and sd.dict_code =  th.trade_subject) trade_subject,
+	  th.`serl_num` serlNum,
+	  th.`trade_money` tradeMoney,
+	  th.`remark` remark 
+	FROM t_fund_account_history th 
+	JOIN t_lender_detail td ON th.`card_code` = td.`card_num`
+	WHERE  td.`lender_num` = #{lenderNum}
+	<include refid="dynamicPageWhere" />
+	ORDER BY th.`trade_time` DESC
+	LIMIT #{startIndex},#{pageSize}
+  </select>
+  
+  <!-- 收支明细总数查询 -->
+  <select id="findAllByPageCount" resultType="long" parameterType="hashmap">
+  	SELECT 
+	  COUNT(1) 
+	FROM
+	  t_fund_account_history th 
+	JOIN t_lender_detail td ON th.`card_code` = td.`card_num`
+	WHERE  td.`lender_num` = #{lenderNum}
+	<include refid="dynamicPageWhere" />
+  </select>
+  
+  <!-- * 资金账户流水分页查询条件  * from lijie -->
+  <sql id="dynamicPageWhere1">
+  	<if test="tradeSubject != null">
+  		AND trade_subject = #{tradeSubject}
+ 	</if>
+ 	<if test="tradeType != null">
+  		AND trade_type = #{tradeType}
+ 	</if>
+  </sql>
+  
+  <!-- * 资金账户流水分页查询  * from lijie -->
+  <select id="findAllByPage" parameterType="hashmap" resultType="hashmap">
+  	SELECT 
+	  id,
+	  serl_num,
+	  card_code,
+	  trade_type,
+	  system_code,
+	  trade_subject,
+	  trade_money,
+	  trade_time,
+	  remark,
+	  (SELECT 
+	    dict_name 
+	  FROM
+	    system_dict 
+	  WHERE dict_type = 'MODULES_CATEGORY' 
+	    AND dict_code = trade_subject) trade_subject_name,
+	  (SELECT 
+	    dict_name 
+	  FROM
+	    system_dict 
+	  WHERE dict_type = 'TRADE_TYPE' 
+	    AND dict_code = trade_type) trade_type_name 
+	FROM
+	  t_fund_account_history 
+  	WHERE system_code = #{systemCode} 
+  	AND card_code = #{cardCode}
+  	<include refid="dynamicPageWhere1" />
+  	ORDER BY trade_time DESC
+	LIMIT #{startIndex}, #{pageSize}
+  </select>
+  
+  <!-- * 资金账户流水分页总数查询  * from lijie -->
+  <select id="findAllByCount" parameterType="hashmap" resultType="long">
+  	SELECT 
+	  COUNT(1)
+	FROM
+	  t_fund_account_history 
+  	WHERE system_code = #{systemCode} 
+  	AND card_code = #{cardCode}
+  	<include refid="dynamicPageWhere1" />
+  </select>
+</mapper>

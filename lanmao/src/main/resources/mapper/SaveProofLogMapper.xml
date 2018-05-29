@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.SaveProofLogMapper" >
+  <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.SaveProofLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="lender_num" property="lenderNum" jdbcType="VARCHAR" />
+    <result column="save_proof_type" property="saveProofType" jdbcType="VARCHAR" />
+    <result column="save_proof_json" property="saveProofJson" jdbcType="VARCHAR" />
+    <result column="save_proof_time" property="saveProofTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, lender_num, save_proof_type, save_proof_json, save_proof_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yipuhui.fastgo.enty.SaveProofLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from save_proof_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from save_proof_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from save_proof_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yipuhui.fastgo.enty.SaveProofLogExample" >
+    delete from save_proof_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yipuhui.fastgo.enty.SaveProofLog" >
+    insert into save_proof_log (id, lender_num, save_proof_type, 
+      save_proof_json, save_proof_time)
+    values (#{id,jdbcType=INTEGER}, #{lenderNum,jdbcType=VARCHAR}, #{saveProofType,jdbcType=VARCHAR}, 
+      #{saveProofJson,jdbcType=VARCHAR}, #{saveProofTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yipuhui.fastgo.enty.SaveProofLog" >
+    insert into save_proof_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="lenderNum != null" >
+        lender_num,
+      </if>
+      <if test="saveProofType != null" >
+        save_proof_type,
+      </if>
+      <if test="saveProofJson != null" >
+        save_proof_json,
+      </if>
+      <if test="saveProofTime != null" >
+        save_proof_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="lenderNum != null" >
+        #{lenderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="saveProofType != null" >
+        #{saveProofType,jdbcType=VARCHAR},
+      </if>
+      <if test="saveProofJson != null" >
+        #{saveProofJson,jdbcType=VARCHAR},
+      </if>
+      <if test="saveProofTime != null" >
+        #{saveProofTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yipuhui.fastgo.enty.SaveProofLogExample" resultType="java.lang.Integer" >
+    select count(*) from save_proof_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update save_proof_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.lenderNum != null" >
+        lender_num = #{record.lenderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saveProofType != null" >
+        save_proof_type = #{record.saveProofType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saveProofJson != null" >
+        save_proof_json = #{record.saveProofJson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saveProofTime != null" >
+        save_proof_time = #{record.saveProofTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update save_proof_log
+    set id = #{record.id,jdbcType=INTEGER},
+      lender_num = #{record.lenderNum,jdbcType=VARCHAR},
+      save_proof_type = #{record.saveProofType,jdbcType=VARCHAR},
+      save_proof_json = #{record.saveProofJson,jdbcType=VARCHAR},
+      save_proof_time = #{record.saveProofTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yipuhui.fastgo.enty.SaveProofLog" >
+    update save_proof_log
+    <set >
+      <if test="lenderNum != null" >
+        lender_num = #{lenderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="saveProofType != null" >
+        save_proof_type = #{saveProofType,jdbcType=VARCHAR},
+      </if>
+      <if test="saveProofJson != null" >
+        save_proof_json = #{saveProofJson,jdbcType=VARCHAR},
+      </if>
+      <if test="saveProofTime != null" >
+        save_proof_time = #{saveProofTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yipuhui.fastgo.enty.SaveProofLog" >
+    update save_proof_log
+    set lender_num = #{lenderNum,jdbcType=VARCHAR},
+      save_proof_type = #{saveProofType,jdbcType=VARCHAR},
+      save_proof_json = #{saveProofJson,jdbcType=VARCHAR},
+      save_proof_time = #{saveProofTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+<!-- 获取存证pdf上传需要的产品及借款人信息 -->
+  <select id="fundSavaProofDataOne" resultType="java.util.HashMap">
+    select
+    tr.bid_invest_num AS contNo,
+    ti.product_name AS projectName,
+    ti.loan_agreement_number AS projectNo,
+    tr.invest_time AS contSignTime,
+    td.mobile AS borrowerAccount,
+    td.real_name AS borrowerName,
+    td.card_num AS  borrowerCode
+    FROM 	t_bid_record AS tr,
+    t_bid_info AS ti,
+    t_qd_borrower AS tb,
+    t_lender_detail AS td
+    WHERE tr.bid_id = ti.bid_id
+    AND ti.qd_borrower_id = tb.qd_borrower_id
+    AND tb.card_code = td.card_num
+    AND tr.bid_invest_num=#{bidInvestNum}
+
+  </select>
+  <!-- 获取存证pdf上传需要投资人信息 -->
+  <select id="fundSavaProofDataTwo" resultType="java.util.HashMap">
+    select
+    tr.bid_record_id AS  id,
+    td.real_name AS  investorName,
+    td.mobile AS investorAccount,
+    td.card_num AS investorCode
+
+    FROM 	t_bid_record AS tr,
+    t_bid_info AS ti,
+    t_lender_detail AS td
+    WHERE tr.bid_id = ti.bid_id
+    AND tr.lender_id =td.id
+    AND tr.bid_invest_num=#{bidInvestNum}
+
+  </select>
+
+<select id="selectSaveProofLogByTime" resultMap="BaseResultMap">
+SELECT <include refid="Base_Column_List"/> FROM  save_proof_log WHERE  DATE_FORMAT(#{saveProofTime},'%Y-%m-%d')=DATE_FORMAT(save_proof_time,'%Y-%m-%d')
+
+</select>
+</mapper>

@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.RechargeRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.RechargeRecord" >
+    <id column="recharge_id" property="rechargeId" jdbcType="INTEGER" />
+    <result column="serl_num" property="serlNum" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="pay_method" property="payMethod" jdbcType="VARCHAR" />
+    <result column="recharge_amount" property="rechargeAmount" jdbcType="DECIMAL" />
+    <result column="lender_id" property="lenderId" jdbcType="INTEGER" />
+    <result column="recharge_status" property="rechargeStatus" jdbcType="CHAR" />
+    <result column="recharge_way" property="rechargeWay" jdbcType="CHAR" />
+    <result column="recharge_time" property="rechargeTime" jdbcType="TIMESTAMP" />
+    <result column="push_status" property="pushStatus" jdbcType="CHAR" />
+    <result column="push_time" property="pushTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="CHAR" />
+      <result column="pay_company" property="payCompany" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="RechargeExportResultMap" type="com.yipuhui.fastgo.common.RechargeExport" >
+    <result column="serl_num" property="serlNum" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="recharge_amount" property="rechargeAmount" jdbcType="DECIMAL" />
+    <result column="recharge_time" property="rechargeTime" jdbcType="TIMESTAMP" />
+    <result column="recharge_way" property="rechargeWay" jdbcType="CHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="card_num" property="cardNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    recharge_id, serl_num, order_num, pay_method, recharge_amount, lender_id, recharge_status,recharge_way, 
+    recharge_time, push_status, push_time, remark,pay_type,pay_company
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_recharge_record
+    where recharge_id = #{rechargeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_recharge_record
+    where recharge_id = #{rechargeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yipuhui.fastgo.enty.RechargeRecord" >
+    insert into t_recharge_record (recharge_id, serl_num, order_num, 
+      pay_method, recharge_amount, lender_id, 
+      recharge_status, recharge_way, recharge_time, push_status, 
+      push_time, remark,pay_type)
+    values (#{rechargeId,jdbcType=INTEGER}, #{serlNum,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, 
+      #{payMethod,jdbcType=VARCHAR}, #{rechargeAmount,jdbcType=DECIMAL}, #{lenderId,jdbcType=INTEGER}, 
+      #{rechargeStatus,jdbcType=CHAR},#{rechargeWay,jdbcType=CHAR}, #{rechargeTime,jdbcType=TIMESTAMP}, #{pushStatus,jdbcType=CHAR}, 
+      #{pushTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{payType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yipuhui.fastgo.enty.RechargeRecord" >
+    insert into t_recharge_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rechargeId != null" >
+        recharge_id,
+      </if>
+      <if test="serlNum != null" >
+        serl_num,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="payMethod != null" >
+        pay_method,
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount,
+      </if>
+      <if test="lenderId != null" >
+        lender_id,
+      </if>
+      <if test="rechargeStatus != null" >
+        recharge_status,
+      </if>
+      <if test="rechargeWay != null" >
+        recharge_way,
+      </if>
+      <if test="rechargeTime != null" >
+        recharge_time,
+      </if>
+      <if test="pushStatus != null" >
+        push_status,
+      </if>
+      <if test="pushTime != null" >
+        push_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rechargeId != null" >
+        #{rechargeId,jdbcType=INTEGER},
+      </if>
+      <if test="serlNum != null" >
+        #{serlNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethod != null" >
+        #{payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAmount != null" >
+        #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="lenderId != null" >
+        #{lenderId,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeStatus != null" >
+        #{rechargeStatus,jdbcType=CHAR},
+      </if>
+      <if test="rechargeWay != null" >
+        #{rechargeWay,jdbcType=CHAR},
+      </if>
+      <if test="rechargeTime != null" >
+        #{rechargeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pushStatus != null" >
+        #{pushStatus,jdbcType=CHAR},
+      </if>
+      <if test="pushTime != null" >
+        #{pushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+<if test="payType != null" >
+        #{payType,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yipuhui.fastgo.enty.RechargeRecord" >
+    update t_recharge_record
+    <set >
+      <if test="serlNum != null" >
+        serl_num = #{serlNum,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethod != null" >
+        pay_method = #{payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAmount != null" >
+        recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="lenderId != null" >
+        lender_id = #{lenderId,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeStatus != null" >
+        recharge_status = #{rechargeStatus,jdbcType=CHAR},
+      </if>
+      <if test="rechargeWay != null" >
+        recharge_way = #{rechargeWay,jdbcType=CHAR},
+      </if>
+      <if test="rechargeTime != null" >
+        recharge_time = #{rechargeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pushStatus != null" >
+        push_status = #{pushStatus,jdbcType=CHAR},
+      </if>
+      <if test="pushTime != null" >
+        push_time = #{pushTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+        <if test="payCompany != null">
+            pay_company = #{payCompany,jdbcType=VARCHAR}
+
+        </if>
+    </set>
+    where recharge_id = #{rechargeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yipuhui.fastgo.enty.RechargeRecord" >
+    update t_recharge_record
+    set serl_num = #{serlNum,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      pay_method = #{payMethod,jdbcType=VARCHAR},
+      recharge_amount = #{rechargeAmount,jdbcType=DECIMAL},
+      lender_id = #{lenderId,jdbcType=INTEGER},
+      recharge_status = #{rechargeStatus,jdbcType=CHAR},
+      recharge_way = #{rechargeWay,jdbcType=CHAR},
+      recharge_time = #{rechargeTime,jdbcType=TIMESTAMP},
+      push_status = #{pushStatus,jdbcType=CHAR},
+      push_time = #{pushTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where recharge_id = #{rechargeId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 动态查询条件配置 -->
+  <sql id="dynamicPageWhere">
+  	<if test="lenderDetailId !=null and lenderDetailId !=''">
+  		and  rr.lender_id = #{lenderDetailId}
+  	</if>
+  	
+  	<if test="orderNum != null and orderNum != ''" >
+        and rr.order_num = #{orderNum}
+    </if>  
+    <if test="serlNum != null and serlNum != ''" >
+        and rr.serl_num = #{serlNum}
+    </if>
+  	<if test="createTimeStart != null and createTimeStart != ''" >
+        and DATE_FORMAT(rr.recharge_time,'%Y-%m-%d') >= DATE_FORMAT(#{createTimeStart},'%Y-%m-%d')
+    </if>
+    <if test="createTimeEnd != null and createTimeEnd != ''" >
+	      <![CDATA[
+	        and DATE_FORMAT(rr.recharge_time,'%Y-%m-%d') <= DATE_FORMAT(#{createTimeEnd},'%Y-%m-%d')
+		  ]]>
+    </if>
+    <if test="rechargeStatus != null and rechargeStatus != ''" >
+        and rr.recharge_status = #{rechargeStatus}
+    </if>
+    <if test="rechargeWay != null and rechargeWay != ''" >
+        and rr.recharge_way = #{rechargeWay}
+    </if>
+  	<if test="realName != null and realName != ''" >
+        and ld.real_name like CONCAT('%',#{realName},'%' )
+    </if>
+    <if test="cardNum != null and cardNum != ''" >
+        and ld.card_num = #{cardNum}
+    </if>
+    <if test="mobile != null and mobile != ''" >
+        and ld.mobile = #{mobile}
+    </if>
+    <if test="rechargeAmountStart != null and rechargeAmountStart != ''" >
+        and rr.recharge_amount >= #{rechargeAmountStart}
+    </if>
+    <if test="rechargeAmountEnd != null and rechargeAmountEnd != ''" >
+    <![CDATA[
+        and rr.recharge_amount <= #{rechargeAmountEnd}
+    ]]>
+    </if>
+  </sql>
+  
+  <!-- 按条件查询充值记录【数据】  -->
+  <select id="findRechargeRecordData" parameterType="HashMap" resultType="HashMap">
+  	SELECT
+		rr.recharge_id,
+		<!-- rr.order_num, -->
+		rr.serl_num as order_num,
+		rr.serl_num,
+		rr.lender_id,
+		rr.pay_method,
+		rr.recharge_amount,
+		rr.recharge_status,
+		sd1.dict_name as recharge_status_name,
+		(select sd.dict_name from system_dict sd where sd.dict_type = 'REGISTER_WAY' and sd.dict_code = rr.recharge_way) recharge_way_name,
+		rr.remark,
+		rr.recharge_time,
+		ld.real_name,
+		sd.dict_name AS recharge_bank,
+		ld.card_num,
+		ld.mobile
+	FROM
+		t_recharge_record rr
+	JOIN t_lender_detail ld ON ld.id = rr.lender_id
+	JOIN system_dict sd ON sd.dict_code = rr.pay_method AND sd.dict_type = 'GATEWAY_BANK'
+	JOIN system_dict sd1 on sd1.dict_code = rr.recharge_status AND  sd1.dict_type='RECHARGE_STATUS'
+	WHERE 1=1 and rr.recharge_status in ('1','2','3')
+  	<include refid="dynamicPageWhere"/>
+  	order by rr.recharge_time desc
+  	limit #{startIndex},#{pageSize}	
+  </select>
+  
+  <!--  按条件查询充值记录【计数】  -->
+  <select id="findRechargeRecordCount" parameterType="HashMap" resultType="Long">
+  	select count(*)
+	from t_recharge_record  rr
+	JOIN t_lender_detail ld ON ld.id = rr.lender_id
+	JOIN system_dict sd ON sd.dict_code = rr.pay_method AND sd.dict_type = 'GATEWAY_BANK'
+	JOIN system_dict sd1 on sd1.dict_code = rr.recharge_status AND  sd1.dict_type='RECHARGE_STATUS'
+	WHERE 1=1 and rr.recharge_status in ('1','2','3')
+  	<include refid="dynamicPageWhere"/>
+  </select>
+  
+  <!-- 按条件查询充值对账记录【数据】 -->
+ <!--  <select id="findRechargeRecordForReconciliation" parameterType="HashMap" resultType="HashMap">
+   SELECT 
+  		distinct rr.serl_num,
+		rr.recharge_id,
+		rr.order_num,
+		rr.lender_id,
+		rr.pay_method,
+		rr.recharge_amount,
+		rr.recharge_status,
+		sd1.dict_name as recharge_status_name,
+		rr.remark,
+		rr.recharge_time,
+		ld.real_name,
+		sd.dict_name AS recharge_bank,
+		ld.card_num,
+		ld.mobile
+	FROM t_recharge_record rr
+	JOIN t_lender_detail ld ON ld.id = rr.lender_id
+	JOIN system_dict sd ON sd.dict_code = rr.pay_method AND sd.dict_type = 'GATEWAY_BANK'
+	JOIN system_dict sd1 on sd1.dict_code = rr.recharge_status AND  sd1.dict_type='RECHARGE_STATUS'
+	WHERE 1= 1
+  	<include refid="dynamicPageWhere"/>
+  	order by rr.order_num desc
+  	limit #{startIndex},#{pageSize}	
+  </select> -->
+  
+  <!-- 按条件查询充值对账记录【数据】 -->
+  <select id="findRechargeRecordForReconciliation" parameterType="HashMap" resultType="HashMap">
+  select distinct t.serl_num,
+		t.recharge_id,
+		t.recharge_amount,
+		t.recharge_status,
+		t.recharge_time
+  from (select distinct rr.serl_num,
+		rr.recharge_id,
+		rr.recharge_amount,
+		rr.recharge_status,
+		rr.recharge_time
+  	from t_recharge_record rr
+	where (select count(1) from t_third_reconciliation tr where tr.local_serl_num = rr.serl_num and tr.type=#{type} and tr.trade_status='0000') = 0
+UNION	
+	select distinct rr.serl_num,
+		rr.recharge_id,
+		rr.recharge_amount,
+		rr.recharge_status,
+		rr.recharge_time
+	from t_recharge_record rr join t_third_reconciliation tr on tr.local_serl_num = rr.serl_num
+	where tr.amount != rr.recharge_amount and tr.type=#{type} and tr.trade_status='0000'
+	) t
+	
+	where 1=1
+	<if test="createTimeStart != null and createTimeStart != ''" >
+        and DATE_FORMAT(t.recharge_time,'%Y-%m-%d') >= DATE_FORMAT(#{createTimeStart},'%Y-%m-%d')
+    </if>
+    <if test="createTimeEnd != null and createTimeEnd != ''" >
+	      <![CDATA[
+	        and DATE_FORMAT(t.recharge_time,'%Y-%m-%d') <= DATE_FORMAT(#{createTimeEnd},'%Y-%m-%d')
+		  ]]>
+    </if>
+    <if test="rechargeStatus != null and rechargeStatus != ''" >
+        and t.recharge_status = #{rechargeStatus}
+    </if>
+    
+	order by t.recharge_time desc
+  	limit #{startIndex},#{pageSize}	
+	
+  </select>
+  
+ 
+  <!-- 按条件查询充值对账记录【计数】 -->
+  <!-- <select id="findRechargeRecordForReconciliationCount" parameterType="HashMap" resultType="Long">
+  	select count(distinct rr.serl_num)
+	from t_recharge_record  rr
+	JOIN t_lender_detail ld ON ld.id = rr.lender_id
+	JOIN system_dict sd ON sd.dict_code = rr.pay_method AND sd.dict_type = 'GATEWAY_BANK'
+	JOIN system_dict sd1 on sd1.dict_code = rr.recharge_status AND  sd1.dict_type='RECHARGE_STATUS'
+	WHERE 1= 1
+  	<include refid="dynamicPageWhere"/>
+  </select> -->
+  
+  <!-- 按条件查询充值对账记录【计数】 -->
+  <select id="findRechargeRecordForReconciliationCount" parameterType="HashMap" resultType="Long">
+  	select count(serl_num) from(
+	select distinct rr.serl_num,
+			rr.recharge_id,
+			rr.recharge_amount,
+			rr.recharge_status,
+			rr.recharge_time
+	  	from t_recharge_record rr
+		where (select count(1) from t_third_reconciliation tr where tr.local_serl_num = rr.serl_num and tr.type=#{type} and tr.trade_status='0000') = 0
+	UNION	
+		select distinct rr.serl_num,
+			rr.recharge_id,
+			rr.recharge_amount,
+			rr.recharge_status,
+			rr.recharge_time
+		from t_recharge_record rr join t_third_reconciliation tr on tr.local_serl_num = rr.serl_num
+		where tr.amount != rr.recharge_amount and tr.type=#{type} and tr.trade_status='0000'
+	) t
+	WHERE 1= 1
+  	<if test="createTimeStart != null and createTimeStart != ''" >
+        and DATE_FORMAT(t.recharge_time,'%Y-%m-%d') >= DATE_FORMAT(#{createTimeStart},'%Y-%m-%d')
+    </if>
+    <if test="createTimeEnd != null and createTimeEnd != ''" >
+	      <![CDATA[
+	        and DATE_FORMAT(t.recharge_time,'%Y-%m-%d') <= DATE_FORMAT(#{createTimeEnd},'%Y-%m-%d')
+		  ]]>
+    </if>
+    <if test="rechargeStatus != null and rechargeStatus != ''" >
+        and t.recharge_status = #{rechargeStatus}
+    </if>
+  </select>
+  
+  <!-- 根据订单编号和状态查询充值记录 -->
+  <select id="findRechargeRecordByOrderNumAndStatus" parameterType="HashMap" resultMap="BaseResultMap">
+   	select 
+    <include refid="Base_Column_List" />
+    from t_recharge_record
+    where 
+	  serl_num = #{orderNum,jdbcType=VARCHAR} 
+	  and recharge_status != #{rechargeStatus,jdbcType=CHAR}
+  </select> 
+  <!-- 查询过期订单ID集合 -->
+  <select id="findExpiredOrderIdSet" parameterType="HashMap" resultType="Integer">
+  	SELECT
+		rr.recharge_id
+	FROM
+		t_recharge_record rr
+	WHERE
+		rr.recharge_status = #{status}
+	AND #{date} >= DATE_FORMAT(
+		rr.recharge_time,
+		'%Y-%m-%d %T'
+	) 
+  </select>
+  <!-- 按条件查询充值成功的记录 -->
+  <select id="querySuccessRechargeRecordByConditions" resultMap="BaseResultMap" parameterType="HashMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_recharge_record
+    where recharge_status = 2
+    <if test="tradeDateStart != null and tradeDateStart != ''" >
+        and DATE_FORMAT(recharge_time,'%Y-%m-%d') >= DATE_FORMAT(#{tradeDateStart},'%Y-%m-%d')
+    </if>
+    <if test="tradeDateEnd != null and tradeDateEnd != ''" >
+	      <![CDATA[
+	        and DATE_FORMAT(recharge_time,'%Y-%m-%d') <= DATE_FORMAT(#{tradeDateEnd},'%Y-%m-%d')
+		  ]]>
+    </if>
+  </select>
+  <sql id="dynamicPageWhere2">
+  	<if test="rechargeTimeStart != null and rechargeTimeStart != ''" >
+        and DATE_FORMAT(rr.recharge_time,'%Y-%m-%d') >= #{rechargeTimeStart}
+    </if>
+    <if test="rechargeTimeEnd != null and rechargeTimeEnd != ''" >
+		<![CDATA[
+	    	and DATE_FORMAT(rr.recharge_time,'%Y-%m-%d') <= #{rechargeTimeEnd}
+		]]>
+    </if>
+    <if test="rechargeWay !=null and rechargeWay !=''">
+  		and rr.recharge_way = #{rechargeWay}
+  	</if>
+  	<if test="realName != null and realName != ''">
+  		and ld.real_name = #{realName}
+  	</if>
+  	<if test="cardNum != null and cardNum != ''">
+  		and ld.card_num = #{cardNum}
+  	</if>
+  	<if test="serlNum != null and serlNum != ''">
+  		and rr.serl_num = #{serlNum}
+  	</if>
+  	
+  </sql>
+ <select id="getRechargeExportList" parameterType="hashmap" resultType="hashmap">
+  	SELECT 
+	  rr.serl_num serlNum,
+	  rr.order_num orderNum,
+	  rr.recharge_amount rechargeAmount,
+	  rr.recharge_time rechargeTime,
+	  ld.real_name realName,
+	  ld.card_num cardNum,
+	  case 
+	  	when rr.recharge_way = '1' or rr.recharge_way = '2' or rr.recharge_way = '3' or rr.recharge_way = '4' or rr.recharge_way = '5'
+	  	then
+		  (SELECT 
+		    sd.dict_name 
+		  FROM
+		    system_dict sd 
+		  WHERE sd.dict_type = 'REGISTER_WAY' 
+		    AND sd.dict_code = rr.recharge_way)
+	     when rr.recharge_way = '6' then '线下'
+	   end as rechargeWay, 
+	  case
+		  when rr.recharge_way = '1' then if(rr.pay_type='2','快捷充值',if(rr.pay_type='1','网银充值',''))
+		  when rr.recharge_way = '2'  then '快捷充值'
+		  when rr.recharge_way = '3' then '快捷充值'
+		  when rr.recharge_way = '4'then '快捷充值'
+		  when rr.recharge_way = '6' then 'POS机充值'
+	  end as payType,
+	  case 
+	  	when rr.recharge_way = '1' then if(rr.pay_type='2',if(rr.recharge_amount*0.0016 >= 2,round(rr.recharge_amount*0.0016,2),2),if(rr.pay_type='1',if(rr.recharge_amount*0.0015 >= 2,round(rr.recharge_amount*0.0015,2),2),null))
+	  	when rr.recharge_way = '2' or recharge_way = '3' or recharge_way = '4' then if(rr.recharge_amount*0.0016 >= 2,round(rr.recharge_amount*0.0016,2),2)
+	  	when rr.recharge_way = '6' then if(rr.recharge_amount*0.005 >= 5,if(rr.recharge_amount*0.005 >= 50,50,round(rr.recharge_amount*0.005,2)),5)
+	  end as rechargeFee
+	FROM
+	  t_recharge_record rr 
+	  JOIN t_lender_detail ld 
+	    ON rr.lender_id = ld.id 
+	WHERE 1 = 1 
+	  AND rr.recharge_status = '2' 
+  	<include refid="dynamicPageWhere2"/>
+  	order by rr.recharge_time desc
+  	limit #{startIndex},#{pageSize}	
+  </select>
+  
+  
+  <!-- <select id="getRechargeExportList" parameterType="hashmap" resultType="hashmap">
+  	SELECT 
+	  rr.serl_num serlNum,
+	  rr.order_num orderNum,
+	  rr.recharge_amount rechargeAmount,
+	  rr.recharge_time rechargeTime,
+	  ld.real_name realName,
+	  ld.card_num cardNum,
+	  (SELECT 
+	    sd.dict_name 
+	  FROM
+	    system_dict sd 
+	  WHERE sd.dict_type = 'REGISTER_WAY' 
+	    AND sd.dict_code = rr.recharge_way) rechargeWay 
+	FROM
+	  t_recharge_record rr 
+	  JOIN t_lender_detail ld 
+	    ON rr.lender_id = ld.id 
+	WHERE 1 = 1 
+	  AND rr.recharge_status = '2' 
+  	<include refid="dynamicPageWhere2"/>
+  	order by rr.recharge_time desc
+  	limit #{startIndex},#{pageSize}	
+  </select> -->
+  
+  <!-- 充值导出分页总数  from lijie-->
+  <select id="getRechargeExportListCount" parameterType="hashmap" resultType="long">
+  	SELECT 
+	  COUNT(1)
+	FROM
+	  t_recharge_record rr 
+	  JOIN t_lender_detail ld 
+	    ON rr.lender_id = ld.id 
+  	WHERE rr.recharge_status = '2'
+  	<include refid="dynamicPageWhere2"/>
+  </select>
+  <!-- 查询充值导出的excel数据  from lijie -->
+  <select id="getExcelData" parameterType="hashmap" resultMap="RechargeExportResultMap">
+  	SELECT 
+	  rr.serl_num,
+	  rr.order_num,
+	  ld.real_name realName,
+	  ld.card_num cardNum,
+	  rr.recharge_amount,
+	  DATE_FORMAT(rr.recharge_time, '%Y-%m-%d %T') recharge_time,
+	  case 
+	  	when rr.recharge_way = '1' or rr.recharge_way = '2' or rr.recharge_way = '3' or rr.recharge_way = '4' or rr.recharge_way = '5'
+	  	then
+		  (SELECT 
+		    sd.dict_name 
+		  FROM
+		    system_dict sd 
+		  WHERE sd.dict_type = 'REGISTER_WAY' 
+		    AND sd.dict_code = rr.recharge_way)
+	     when rr.recharge_way = '6' then '线下'
+	   end as rechargeWay,
+	    case
+		  when rr.recharge_way = '1' then if(rr.pay_type='2','快捷充值',if(rr.pay_type='1','网银充值',''))
+		  when rr.recharge_way = '2'  then '快捷充值'
+		  when rr.recharge_way = '3' then '快捷充值'
+		  when rr.recharge_way = '4' then '快捷充值'
+		  when rr.recharge_way = '6' then 'POS机充值'
+	  end as payType,
+	  case 
+	  	when rr.recharge_way = '1' then if(rr.pay_type='2',if(rr.recharge_amount*0.0016 >= 2,round(rr.recharge_amount*0.0016,2),2.00),if(rr.pay_type='1',if(rr.recharge_amount*0.0015 >= 2,round(rr.recharge_amount*0.0015,2),2),null))
+	  	when rr.recharge_way = '2' or recharge_way = '3' or recharge_way = '4' then if(rr.recharge_amount*0.0016 >= 2,round(rr.recharge_amount*0.0016,2),2.00)
+	  	when rr.recharge_way = '6' then if(rr.recharge_amount*0.005 >= 5,if(rr.recharge_amount*0.005 >= 50,50.00,round(rr.recharge_amount*0.005,2)),5.00)
+	  end as rechargeFee
+	FROM
+	  t_recharge_record rr 
+	JOIN t_lender_detail ld 
+	ON rr.lender_id = ld.id 
+  	WHERE rr.recharge_status = '2'
+  	<include refid="dynamicPageWhere2"/>
+  	order by rr.recharge_time desc
+  </select> 
+  <!-- 查询充值导出的excel数据  from lijie -->
+  
+  <!-- <select id="getExcelData" parameterType="hashmap" resultMap="RechargeExportResultMap">
+  	SELECT 
+	  rr.serl_num,
+	  rr.order_num,
+	  ld.real_name realName,
+	  ld.card_num cardNum,
+	  rr.recharge_amount,
+	  DATE_FORMAT(rr.recharge_time, '%Y-%m-%d %T') recharge_time,
+	  (SELECT 
+	    sd.dict_name 
+	  FROM
+	    system_dict sd 
+	  WHERE sd.dict_type = 'REGISTER_WAY' 
+	    AND sd.dict_code = rr.recharge_way) recharge_way 
+	FROM
+	  t_recharge_record rr 
+	JOIN t_lender_detail ld 
+	ON rr.lender_id = ld.id 
+  	WHERE rr.recharge_status = '2'
+  	<include refid="dynamicPageWhere2"/>
+  	order by rr.recharge_time desc
+  </select> -->
+  
+  
+  <select id="selectPayApplyByTime" resultMap="BaseResultMap">
+ SELECT 
+ <include refid="Base_Column_List"/>   
+ from t_recharge_record tr 
+ WHERE tr.recharge_status=#{rechargeStatus} and DATE_FORMAT(#{date},'%Y-%m-%d %H:%i:%s')>DATE_FORMAT(tr.recharge_time,'%Y-%m-%d %H:%i:%s')
+  </select>
+  
+  
+  <select id="selectPayApplyBySul" resultMap="BaseResultMap">
+  SELECT 
+ <include refid="Base_Column_List"/>   
+ from t_recharge_record
+ WHERE serl_num=#{serlNum}
+  </select>
+ <!-- ============================================================================================================================== -->
+    <!-- 动态查询条件配置 -->
+  <sql id="dynamicPageWhere3">
+ 	<if test="tradeDateStart != null and tradeDateStart != ''" >
+        and DATE_FORMAT(rr.recharge_time ,'%Y-%m-%d') >= DATE_FORMAT(#{tradeDateStart},'%Y-%m-%d')
+    </if>
+    <if test="tradeDateEnd != null and tradeDateEnd != ''" >
+	      <![CDATA[
+	        and DATE_FORMAT(rr.recharge_time ,'%Y-%m-%d') <= DATE_FORMAT(#{tradeDateEnd},'%Y-%m-%d')
+		  ]]>
+    </if>
+    <if test="rechargeStatus != null and rechargeStatus != ''" >
+        and rr.recharge_status = #{rechargeStatus}
+    </if>
+  </sql> 
+  
+   <!-- 我方存在三方不存在 -->
+  <select id="findLocalIsExitsError" parameterType="HashMap" resultType="String">
+  	select rr.serl_num
+  	from t_recharge_record rr
+	where (select count(1) from t_third_reconciliation tr where tr.local_serl_num = rr.serl_num and tr.type=#{type} and tr.trade_status='0000') = 0
+	<include refid="dynamicPageWhere3"/>
+	order by rr.recharge_time desc
+  </select>
+  <!-- 三方存在我方不存在 -->
+  <select id="findThirdIsExitsError" parameterType="HashMap" resultType="String">
+  	select distinct tr.local_serl_num
+	from t_third_reconciliation tr 
+	where (select count(1) from t_recharge_record rr where rr.serl_num = tr.local_serl_num) = 0 and tr.type=#{type} and tr.trade_status='0000'
+	<if test="tradeDateStart != null and tradeDateStart != ''" >
+        and DATE_FORMAT(tr.trade_time ,'%Y-%m-%d') >= DATE_FORMAT(#{tradeDateStart},'%Y-%m-%d')
+    </if>
+    <if test="tradeDateEnd != null and tradeDateEnd != ''" >
+	      <![CDATA[
+	        and DATE_FORMAT(tr.trade_time ,'%Y-%m-%d') <= DATE_FORMAT(#{tradeDateEnd},'%Y-%m-%d')
+		  ]]>
+    </if>
+    order by tr.trade_time desc
+  </select>
+ 
+  <!-- 记录相同金额不同 -->
+  <select id="findAmountError" parameterType="HashMap" resultType="String">
+  	select distinct tr.local_serl_num
+	from t_third_reconciliation tr join t_recharge_record rr on tr.local_serl_num = rr.serl_num
+	where tr.amount != rr.recharge_amount  and tr.type=#{type} and tr.trade_status='0000'
+	<include refid="dynamicPageWhere3"/>
+	order by tr.trade_time desc
+  </select>
+ 
+ <select id="findAmountSum" parameterType="HashMap" resultType="java.math.BigDecimal">
+ 	select sum(recharge_amount)
+	from (select distinct rr.serl_num,
+		rr.recharge_id,
+		rr.recharge_amount,
+		rr.recharge_status,
+		rr.recharge_time
+  	from t_recharge_record rr
+	where (select count(1) from t_third_reconciliation tr where tr.local_serl_num = rr.serl_num and tr.type=#{type} and tr.trade_status='0000') = 0
+	UNION	
+	select distinct rr.serl_num,
+		rr.recharge_id,
+		rr.recharge_amount,
+		rr.recharge_status,
+		rr.recharge_time
+	from t_recharge_record rr join t_third_reconciliation tr on tr.local_serl_num = rr.serl_num
+	where tr.amount != rr.recharge_amount and tr.type=#{type} and tr.trade_status='0000') t
+	WHERE 1= 1
+  	<if test="tradeDateStart != null and tradeDateStart != ''" >
+        and DATE_FORMAT(t.recharge_time ,'%Y-%m-%d') >= DATE_FORMAT(#{tradeDateStart},'%Y-%m-%d')
+    </if>
+    <if test="tradeDateEnd != null and tradeDateEnd != ''" >
+	      <![CDATA[
+	        and DATE_FORMAT(t.recharge_time ,'%Y-%m-%d') <= DATE_FORMAT(#{tradeDateEnd},'%Y-%m-%d')
+		  ]]> 
+    </if>
+    <if test="rechargeStatus != null and rechargeStatus != ''" >
+        and t.recharge_status = #{rechargeStatus}
+    </if>
+ </select>
+
+
+
+
+<!-- 根据时间和状态查询结果 -->
+    <select id="selectPayApplyByTimeAndStatus" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from t_recharge_record
+        WHERE
+            recharge_status=#{rechargeStatus,jdbcType=CHAR} and
+          DATE_FORMAT(#{date},'%Y-%m-%d')=DATE_FORMAT(recharge_time,'%Y-%m-%d')
+        AND recharge_way not IN ('7')
+    </select>
+
+    <!-- 根据时间和支付方式-->
+    <select id="selectPayApplyByTimeAndRechagerWay" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from t_recharge_record
+        WHERE
+        recharge_way=#{rechargeWay,jdbcType=CHAR} and
+        DATE_FORMAT(#{date},'%Y-%m-%d')=DATE_FORMAT(recharge_time,'%Y-%m-%d')
+    </select>
+  
+</mapper>

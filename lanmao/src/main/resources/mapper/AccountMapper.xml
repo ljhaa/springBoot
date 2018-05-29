@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.AccountMapper" >
+
+	<!-- 根据出借人ID查询可用余额 -->
+	<select id="findAvailableBalanceByLenderNum" parameterType="string" resultType="java.math.BigDecimal">
+		SELECT fa.available_balance AS money
+		FROM t_fund_account fa JOIN t_lender_detail ld ON ld.card_num = fa.card_code
+		WHERE ld.lender_num = #{lenderNum,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 根据出借人ID查询待收本金-->
+	<select id="findCollectPrincipalByLenderNum" parameterType="string" resultType="java.math.BigDecimal">
+		SELECT IFNULL(SUM(ir.invest_amount),0.00)
+		FROM t_invest_record ir JOIN t_lender_detail ld ON ir.lender_id = ld.id
+		where ld.lender_num = #{lenderNum,jdbcType=VARCHAR} and ir.invest_status = '2'
+	</select>
+	
+	<!-- 根据出借人ID查询待收收益-->
+	<select id="findCollectInterestByLenderNum" parameterType="HashMap" resultType="java.math.BigDecimal">
+		<![CDATA[
+		select 
+		IFNULL(
+				sum(
+					case 
+					when  ir.product_name = '亿元宝'  and ir.invest_status = '2' and  CURDATE() <= DATE_ADD(ir.due_date,INTERVAL 1 DAY)
+					then ROUND(ir.invest_amount * ir.rate_year /12/30  * ir.close_month,2)
+					
+					when  ir.product_name ='亿元宝'  and ir.invest_status='2' and  CURDATE() > DATE_ADD(ir.due_date,INTERVAL 1 DAY)
+					then ROUND(ir.invest_amount * ir.rate_year /12/30  * (DATEDIFF(CURDATE(),ir.interest_accrual_date)),2)
+					
+					when  ir.product_name ='亿息宝'  and ir.invest_status='2'
+					then ROUND(ir.invest_amount * ir.rate_year / 12 ,2)
+				
+					when  ir.product_name ='亿年宝'  and ir.invest_status='2' and CURDATE() <= DATE_ADD(ir.due_date,INTERVAL 1 DAY)
+					then ROUND(ir.invest_amount * ir.rate_year / 12 * ir.close_month,2)
+
+					when  ir.product_name ='亿年宝'  and ir.invest_status='2' and CURDATE() > DATE_ADD(ir.due_date,INTERVAL 1 DAY)
+					then ROUND(ir.invest_amount * ir.rate_year / 12 * f_bet_month(ir.interest_accrual_date,CURDATE())
+					+ ir.invest_amount * ir.rate_year /12/30  * (DATEDIFF(CURDATE(),(DATE_ADD(ir.interest_accrual_date, INTERVAL f_bet_month(ir.interest_accrual_date,CURDATE()) MONTH)))),2)
+				
+					when  ir.product_type ='0'  and ir.invest_status='2' 
+					then ROUND(ir.invest_amount * ir.rate_year / 12 * ir.close_month,2)
+					else 
+						0.00
+					end 
+				) , 0.00
+		) amount
+		from t_invest_record ir 
+		join t_lender_detail ld on ir.lender_id = ld.id
+		where ld.lender_num=#{lenderNum,jdbcType=VARCHAR}
+		]]>
+	</select>
+	
+	<!-- 根据出借人ID查询投资中-->
+	<select id="findInvestingInfoByLenderNum" parameterType="string" resultType="HashMap">
+		SELECT count(*) AS count,IFNULL(sum(ir.invest_amount), 0.00) AS money
+		FROM t_invest_record ir JOIN t_lender_detail ld ON ir.lender_id = ld.id
+		WHERE ld.lender_num = #{lenderNum,jdbcType=VARCHAR} AND ir.invest_status = '2'
+	</select>
+	
+	<select id="findBidInvestingInfoByLenderNum" parameterType="string" resultType="HashMap">
+		SELECT 
+		  COUNT(1) investing_count,
+		  IFNULL(SUM(br.bid_amount), 0.00) investing_money
+		FROM
+		  t_bid_record br 
+		  JOIN t_lender_detail ld 
+		    ON br.lender_id = ld.id 
+		WHERE ld.lender_num = #{lenderNum,jdbcType=VARCHAR}
+		  AND br.invest_status = '2' 
+	</select>
+	
+	<select id="findBidSettledInfoByLenderNum" parameterType="string" resultType="HashMap">
+		SELECT 
+		  COUNT(1) settled_count,
+		  IFNULL(SUM(br.bid_amount), 0.00) settled_money
+		FROM
+		  t_bid_record br 
+		  JOIN t_lender_detail ld 
+		    ON br.lender_id = ld.id 
+		WHERE ld.lender_num = #{lenderNum,jdbcType=VARCHAR}
+		  AND br.invest_status = '3' 
+	</select>
+	
+	<!-- 根据出借人ID查询已结算-->
+	<select id="findSettledInfoByLenderNum" parameterType="string" resultType="HashMap">
+		SELECT count(*) AS count,IFNULL(sum(ir.invest_amount), 0.00) AS money
+		FROM t_invest_record ir JOIN t_lender_detail ld ON ir.lender_id = ld.id
+		WHERE ld.lender_num = #{lenderNum,jdbcType=VARCHAR} AND ir.invest_status = '3'
+	</select>
+	
+	<!-- 查询客户投资信息 -->
+  	<select id="findInvestStatistics" parameterType="HashMap" resultType="HashMap">
+	  	SELECT IFNULL(sum(ir.invest_amount), 0.00) AS total_amount,count(*) AS total_count
+		FROM t_invest_record ir JOIN t_lender_detail ld ON ir.lender_id = ld.id
+		WHERE ld.lender_num=#{lenderNum,jdbcType=VARCHAR}
+		<if test="productType != null and productType != ''">
+			and ir.product_type=#{productType,jdbcType=VARCHAR}   
+		</if>
+  	</select>
+  	
+  	<select id="findBidInvestStatistics" parameterType="hashmap" resultType="hashmap">
+  		
+		SELECT 
+		  COUNT(1) total_count,
+		  IFNULL(SUM(br.bid_amount), 0.00) total_amount 
+		FROM
+		  t_bid_record br 
+		  JOIN t_lender_detail ld 
+		    ON br.lender_id = ld.id 
+JOIN t_bid_info ti ON  ti.bid_id = br.bid_id
+		WHERE ld.lender_num = #{lenderNum,jdbcType=VARCHAR} AND ti.borrow_category = #{borrowCategory}
+		GROUP BY lender_id 
+  	</select>
+  	
+  	<select id="findUeInvestStatistics" parameterType="hashmap" resultType="hashmap">
+  		SELECT IFNULL(SUM(ir.invest_amount), 0.00) AS total_amount,COUNT(*) AS total_count
+		FROM `ue_invest` ir JOIN `t_lender_login` ld ON ir.`lender_login_id` = ld.id
+		WHERE ld.`id`= #{ueLenderLoginId,jdbcType=VARCHAR}
+	
+	</select>	
+  	
+  	 
+  	<select id="findBidSettledInfoByMobile" parameterType="java.lang.Integer" resultType="HashMap">
+  	select ft.id, ft.freeze_amount , ft.available_balance,card_code  from  t_fund_account ft , t_lender_detail tl WHERE tl.card_num = ft.card_code AND tl.id=#{lenderId}
+  	</select>
+  	
+  	
+  	<update id="updateSettledInfoById" parameterType="java.util.HashMap">
+  	   UPDATE t_fund_account f SET  f.available_balance= f.available_balance+#{newAvailableBalance} , f.freeze_amount=f.freeze_amount+#{newFreezeAmount} WHERE f.id=#{id} 
+  	</update>
+  	<update id="updateSettledInfoPayById" parameterType="java.util.HashMap">
+  	   UPDATE t_fund_account f SET  f.freeze_amount=f.freeze_amount+#{newFreezeAmount} WHERE f.id=#{id} 
+  	</update>
+  	<!-- 提现后同步修改core的活期账户 -->
+  		<update id="updateCoreInfoPayById" parameterType="java.util.HashMap">
+  	 
+  	   UPDATE core.`zw_current_account`  SET money=money+#{newFreezeAmount}   WHERE card_code=#{cardCode} 
+  	</update>
+  	
+</mapper>

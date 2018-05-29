@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.LenderCouponRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.LenderCouponRelation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="lender_login_id" property="lenderLoginId" jdbcType="INTEGER" />
+    <result column="activity_id" property="activityId" jdbcType="INTEGER" />
+    <result column="coupon_name" property="couponName" jdbcType="VARCHAR" />
+    <result column="coupon_num" property="couponNum" jdbcType="VARCHAR" />
+    <result column="coupon_type" property="couponType" jdbcType="VARCHAR" />
+    <result column="application_range" property="applicationRange" jdbcType="VARCHAR" />
+    <result column="use_line_limit" property="useLineLimit" jdbcType="DECIMAL" />
+    <result column="coupon_limit" property="couponLimit" jdbcType="DECIMAL" />
+    <result column="ratio" property="ratio" jdbcType="DECIMAL" />
+    <result column="use_status" property="useStatus" jdbcType="CHAR" />
+    <result column="valid_start_date" property="validStartDate" jdbcType="DATE" />
+    <result column="valid_end_date" property="validEndDate" jdbcType="DATE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, lender_login_id, activity_id, coupon_name, coupon_num, coupon_type, application_range, 
+    use_line_limit, coupon_limit, ratio, use_status, valid_start_date, valid_end_date, 
+    create_time, operate_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_lender_coupon_relation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_lender_coupon_relation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yipuhui.fastgo.enty.LenderCouponRelation" >
+    insert into t_lender_coupon_relation (id, lender_login_id, activity_id, 
+      coupon_name, coupon_num, coupon_type, 
+      application_range, use_line_limit, coupon_limit, 
+      ratio, use_status, valid_start_date, 
+      valid_end_date, create_time, operate_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{lenderLoginId,jdbcType=INTEGER}, #{activityId,jdbcType=INTEGER}, 
+      #{couponName,jdbcType=VARCHAR}, #{couponNum,jdbcType=VARCHAR}, #{couponType,jdbcType=VARCHAR}, 
+      #{applicationRange,jdbcType=VARCHAR}, #{useLineLimit,jdbcType=DECIMAL}, #{couponLimit,jdbcType=DECIMAL}, 
+      #{ratio,jdbcType=DECIMAL}, #{useStatus,jdbcType=CHAR}, #{validStartDate,jdbcType=DATE}, 
+      #{validEndDate,jdbcType=DATE}, #{createTime,jdbcType=TIMESTAMP}, #{operateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yipuhui.fastgo.enty.LenderCouponRelation" >
+    insert into t_lender_coupon_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="lenderLoginId != null" >
+        lender_login_id,
+      </if>
+      <if test="activityId != null" >
+        activity_id,
+      </if>
+      <if test="couponName != null" >
+        coupon_name,
+      </if>
+      <if test="couponNum != null" >
+        coupon_num,
+      </if>
+      <if test="couponType != null" >
+        coupon_type,
+      </if>
+      <if test="applicationRange != null" >
+        application_range,
+      </if>
+      <if test="useLineLimit != null" >
+        use_line_limit,
+      </if>
+      <if test="couponLimit != null" >
+        coupon_limit,
+      </if>
+      <if test="ratio != null" >
+        ratio,
+      </if>
+      <if test="useStatus != null" >
+        use_status,
+      </if>
+      <if test="validStartDate != null" >
+        valid_start_date,
+      </if>
+      <if test="validEndDate != null" >
+        valid_end_date,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="operateTime != null" >
+        operate_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="lenderLoginId != null" >
+        #{lenderLoginId,jdbcType=INTEGER},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="couponName != null" >
+        #{couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="couponNum != null" >
+        #{couponNum,jdbcType=VARCHAR},
+      </if>
+      <if test="couponType != null" >
+        #{couponType,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationRange != null" >
+        #{applicationRange,jdbcType=VARCHAR},
+      </if>
+      <if test="useLineLimit != null" >
+        #{useLineLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="couponLimit != null" >
+        #{couponLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="ratio != null" >
+        #{ratio,jdbcType=DECIMAL},
+      </if>
+      <if test="useStatus != null" >
+        #{useStatus,jdbcType=CHAR},
+      </if>
+      <if test="validStartDate != null" >
+        #{validStartDate,jdbcType=DATE},
+      </if>
+      <if test="validEndDate != null" >
+        #{validEndDate,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateTime != null" >
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yipuhui.fastgo.enty.LenderCouponRelation" >
+    update t_lender_coupon_relation
+    <set >
+      <if test="lenderLoginId != null" >
+        lender_login_id = #{lenderLoginId,jdbcType=INTEGER},
+      </if>
+      <if test="activityId != null" >
+        activity_id = #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="couponName != null" >
+        coupon_name = #{couponName,jdbcType=VARCHAR},
+      </if>
+      <if test="couponNum != null" >
+        coupon_num = #{couponNum,jdbcType=VARCHAR},
+      </if>
+      <if test="couponType != null" >
+        coupon_type = #{couponType,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationRange != null" >
+        application_range = #{applicationRange,jdbcType=VARCHAR},
+      </if>
+      <if test="useLineLimit != null" >
+        use_line_limit = #{useLineLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="couponLimit != null" >
+        coupon_limit = #{couponLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="ratio != null" >
+        ratio = #{ratio,jdbcType=DECIMAL},
+      </if>
+      <if test="useStatus != null" >
+        use_status = #{useStatus,jdbcType=CHAR},
+      </if>
+      <if test="validStartDate != null" >
+        valid_start_date = #{validStartDate,jdbcType=DATE},
+      </if>
+      <if test="validEndDate != null" >
+        valid_end_date = #{validEndDate,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operateTime != null" >
+        operate_time = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateUseSatusById" parameterType="com.yipuhui.fastgo.enty.LenderCouponRelation" >
+    update t_lender_coupon_relation
+    set use_status = #{useStatus,jdbcType=CHAR},
+		operate_time = #{operateTime,jdbcType=TIMESTAMP}
+	  <if test="validEndDate != null" >
+		  ,valid_end_date = #{validEndDate,jdbcType=DATE}
+	  </if>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.yipuhui.fastgo.enty.LenderCouponRelation" >
+    update t_lender_coupon_relation
+    set lender_login_id = #{lenderLoginId,jdbcType=INTEGER},
+      activity_id = #{activityId,jdbcType=INTEGER},
+      coupon_name = #{couponName,jdbcType=VARCHAR},
+      coupon_num = #{couponNum,jdbcType=VARCHAR},
+      coupon_type = #{couponType,jdbcType=VARCHAR},
+      application_range = #{applicationRange,jdbcType=VARCHAR},
+      use_line_limit = #{useLineLimit,jdbcType=DECIMAL},
+      coupon_limit = #{couponLimit,jdbcType=DECIMAL},
+      ratio = #{ratio,jdbcType=DECIMAL},
+      use_status = #{useStatus,jdbcType=CHAR},
+      valid_start_date = #{validStartDate,jdbcType=DATE},
+      valid_end_date = #{validEndDate,jdbcType=DATE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      operate_time = #{operateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 分页查询我的优惠券数据-->
+  <select id="findMyCouponsDataByPage" parameterType="HashMap" resultType="HashMap">
+  	SELECT
+		lcr.coupon_num as couponNum,
+		lcr.coupon_name as couponName,
+		lcr.coupon_type as couponType,
+		(select dict_name from system_dict where dict_type = 'COUPON_TYPE' and dict_code = lcr.coupon_type) as couponTypeName,
+		lcr.application_range as applicationRange,
+		replace(replace(replace(replace(replace(lcr.application_range,'3','亿农宝'),'4','亿元宝'),'5','亿信宝'),'6','亿金宝'),'7','亿融宝') as  applicationRangeName,
+		lcr.use_line_limit as useLineLimit,
+		lcr.coupon_limit as couponLimit,
+		lcr.ratio*100 as ratio,
+		lcr.use_status as useStatus,
+		DATE_FORMAT(lcr.valid_start_date,'%Y-%m-%d') as validStartDate,
+		DATE_FORMAT(lcr.valid_end_date,'%Y-%m-%d') as validEndDate
+	FROM
+		t_lender_coupon_relation lcr
+	WHERE 1=1
+		<include refid="dynamicPageWhereForMyCoupons"/>
+	ORDER BY lcr.operate_time DESC, lcr.create_time DESC, lcr.id DESC
+	limit #{startIndex},#{pageSize}  
+  </select>
+  
+  <!-- 分页查询我的优惠券计数 -->
+  <select id="findMyCouponsCountByPage" parameterType="HashMap" resultType="Long">
+  	SELECT
+		count(*)
+	FROM
+		t_lender_coupon_relation lcr
+	WHERE 1=1
+  		<include refid="dynamicPageWhereForMyCoupons"/>
+  </select>
+  
+   <!-- 分页查询我的优惠券数据 -->
+  <sql id="dynamicPageWhereForMyCoupons">
+  	<if test="lenderLoginId != null">
+  		and lcr.lender_login_id =  #{lenderLoginId,jdbcType=VARCHAR}
+  	</if>
+  	<if test="useStatus != null">
+  		and lcr.use_status =  #{useStatus,jdbcType=VARCHAR}
+  	</if>
+  	<if test="useStatusIn != null">
+  		and lcr.use_status in ( ${useStatusIn} ) 
+  	</if>
+  	<if test="couponType != null">
+  		and lcr.coupon_type =  #{couponType,jdbcType=VARCHAR}
+  	</if>
+  	<if test="applicationRange != null">
+  		and (lcr.application_range LIKE '%${applicationRange}%' OR lcr.application_range IS NULL)
+  	</if>
+  	
+  </sql>
+  
+  <!-- 分页查询我的优惠券数据 for mobile-->
+  
+  <select id="findMyCouponsForMobileByPage" parameterType="HashMap" resultType="HashMap">
+  	SELECT
+		lcr.coupon_name as couponName,
+		lcr.coupon_num as couponNum,
+		lcr.coupon_type as couponType,
+		lcr.use_line_limit as useLineLimit,
+		lcr.application_range as applicationRange,
+		lcr.coupon_limit as couponLimit,
+		lcr.ratio as ratio,
+		lcr.use_status AS useStatus,
+		DATE_FORMAT(lcr.valid_end_date,'%Y-%m-%d') as validEndDate
+	FROM
+		t_lender_coupon_relation lcr
+	WHERE  1=1
+	<include refid="dynamicPageWhereForMyCoupons"/>
+	<if test="useStatus != null and applicationRange == null">
+  		ORDER BY lcr.valid_end_date asc,lcr.use_line_limit asc,lcr.coupon_limit desc,lcr.valid_start_date asc
+  	</if>
+  	<if test="useStatus != null and applicationRange != null">
+  		ORDER BY lcr.use_line_limit asc,lcr.valid_end_date asc,lcr.coupon_limit desc,lcr.valid_start_date asc
+  	</if>
+  	<if test="useStatusIn != null">
+  		ORDER BY lcr.valid_end_date desc
+  	</if>
+	LIMIT #{startIndex},#{pageSize}  
+  </select>
+  
+  <!-- <select id="findMyCouponsForMobileByPage" parameterType="HashMap" resultType="HashMap">
+  	SELECT
+		lcr.coupon_name as couponName,
+		lcr.coupon_num as couponNum,
+		lcr.coupon_type as couponType,
+		lcr.use_line_limit as useLineLimit,
+		lcr.application_range as applicationRange,
+		lcr.coupon_limit as couponLimit,
+		lcr.ratio as ratio,
+		lcr.use_status AS useStatus,
+		DATE_FORMAT(lcr.valid_end_date,'%Y-%m-%d') as validEndDate
+	FROM
+		t_lender_coupon_relation lcr
+	WHERE  1=1
+	<include refid="dynamicPageWhereForMyCoupons"/>
+
+  	ORDER BY lcr.operate_time DESC, lcr.create_time DESC, lcr.id DESC
+	LIMIT #{startIndex},#{pageSize}  
+  </select> -->
+  
+  <!-- 分页查询我的优惠券计数 -->
+  <select id="findMyCouponsForMobileCountByPage" parameterType="HashMap" resultType="Long">
+  	SELECT
+		count(*)
+	FROM
+		t_lender_coupon_relation lcr
+	WHERE 1=1
+  	<include refid="dynamicPageWhereForMyCoupons"/>
+  </select>
+  
+  <!-- 分页查询优惠券 -->
+  <sql id="dynamicPageWhere">
+  	<if test="couponNum != null ">
+  		and lcr.coupon_num =  #{couponNum,jdbcType=VARCHAR}
+  	</if>
+  	<if test="couponType != null ">
+  		and lcr.coupon_type =  #{couponType,jdbcType=VARCHAR}
+  	</if>
+  	<if test="useStatus != null ">
+  		and lcr.use_status =  #{useStatus,jdbcType=VARCHAR}
+  	</if>
+  	<if test="minStartTime != null">
+ 		and DATE_FORMAT(lcr.valid_start_date,'%Y-%m-%d') >= #{minStartTime}
+ 	</if>
+ 	<if test="maxStartTime != null">
+ 	<![CDATA[
+ 		and DATE_FORMAT(lcr.valid_start_date,'%Y-%m-%d') <= #{maxStartTime}
+ 	]]>	
+ 	</if>
+ 	<if test="minEndTime != null">
+ 		and DATE_FORMAT(lcr.valid_end_date,'%Y-%m-%d') >= #{minEndTime}
+ 	</if>
+ 	<if test="maxEndTime != null">
+ 	<![CDATA[
+ 		and DATE_FORMAT(lcr.valid_end_date,'%Y-%m-%d') <= #{maxEndTime}
+ 	]]>	
+ 	</if>
+  </sql>
+  
+  <!-- 分页查询优惠券 -->
+  <select id="findAllRetMapByPage" resultType="hashmap" parameterType="hashmap">
+  	SELECT
+		lcr.coupon_num as couponNum,
+		lcr.coupon_name as couponName,
+		lcr.coupon_type as couponType,
+		(select dict_name from system_dict where dict_type = 'COUPON_TYPE' and dict_code = lcr.coupon_type) as couponTypeName,
+		lcr.application_range as applicationRange,
+		replace(replace(replace(replace(lcr.application_range,'1','月谱盈'),'2','季谱盈'),'3','陆月盈'),'4','岁岁盈') as  applicationRangeName,
+		lcr.use_line_limit as useLineLimit,
+		lcr.coupon_limit as couponLimit,
+		lcr.ratio as ratio,
+		lcr.use_status as useStatus,
+		(select dict_name from system_dict where dict_type = 'USE_STATUS' and dict_code = lcr.use_status) as useStatusName,
+		DATE_FORMAT(lcr.valid_start_date,'%Y-%m-%d') as validStartDate,
+		DATE_FORMAT(lcr.valid_end_date,'%Y-%m-%d') as validEndDate
+	FROM
+		t_lender_coupon_relation lcr
+	WHERE 1=1
+		<include refid="dynamicPageWhere"/>
+	ORDER BY lcr.create_time DESC
+	limit #{startIndex},#{pageSize} 
+  </select>
+  
+  <select id="findAllByPageCount" parameterType="hashmap" resultType="long">
+  	SELECT
+		count(1)
+	FROM
+		t_lender_coupon_relation lcr
+	WHERE 1=1
+  		<include refid="dynamicPageWhere"/>
+  </select>
+  
+  
+  	<!-- 查询投资时可用优惠券 -->
+	<select id="selectInvestUsableCoupon" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+		  lcr.id,
+		  lcr.coupon_name,
+		  lcr.coupon_type,
+		  lcr.coupon_num,
+		  lcr.use_line_limit,
+		  lcr.coupon_limit,
+		  lcr.application_range,
+		  lcr.ratio,
+		  DATE_FORMAT(lcr.valid_end_date, '%Y-%m-%d') valid_end_date  
+		FROM
+		  t_lender_coupon_relation lcr 
+		WHERE lcr.lender_login_id = #{lenderLoginId} 
+		  AND lcr.use_status = #{useStatus} 
+		  AND lcr.coupon_type != 2
+		   <if test="amount != null ">
+		  	  <![CDATA[
+			  AND lcr.use_line_limit <= #{amount} 
+			  ]]>
+  		  </if>		  
+		  AND FIND_IN_SET(#{applicationRange}, lcr.application_range)
+		  order by lcr.use_line_limit
+	</select>
+	
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into t_lender_coupon_relation (
+			lender_login_id, 
+			activity_id, 
+      		coupon_name,
+      		coupon_num, 
+      		coupon_type, 
+      		application_range, 
+      		use_line_limit, 
+      		coupon_limit, 
+      		ratio, 
+      		use_status, 
+      		valid_start_date, 
+      		valid_end_date, 
+      		create_time, 
+      		operate_time) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.lenderLoginId,jdbcType=INTEGER}, 
+			#{item.activityId,jdbcType=INTEGER}, 
+     	 	#{item.couponName,jdbcType=VARCHAR}, 
+     	 	#{item.couponNum,jdbcType=VARCHAR}, 
+     	 	#{item.couponType,jdbcType=VARCHAR}, 
+      		#{item.applicationRange,jdbcType=VARCHAR}, 
+      		#{item.useLineLimit,jdbcType=DECIMAL}, 
+      		#{item.couponLimit,jdbcType=DECIMAL}, 
+      		#{item.ratio,jdbcType=DECIMAL}, 
+      		#{item.useStatus,jdbcType=CHAR}, 
+      		#{item.validStartDate,jdbcType=DATE}, 
+      		#{item.validEndDate,jdbcType=DATE}, 
+      		#{item.createTime,jdbcType=TIMESTAMP}, 
+      		#{item.operateTime,jdbcType=TIMESTAMP}
+      		)
+		</foreach>
+	</insert>
+	<!-- 根据登录ID和优惠券编码查询优惠券信息 -->
+	<select id="findCouponByLenderLoginIdAndCouponNum" resultType="hashmap">
+		SELECT 
+		  tr.id id,
+		  tr.coupon_type couponType,
+		  tr.coupon_name couponName,
+		  tr.coupon_num couponNum,
+		  tr.coupon_limit couponCash,
+		  tr.use_status useStatus 
+		FROM
+		  t_lender_coupon_relation tr
+		where tr.lender_login_id  = #{lenderLoginId}
+		and tr.coupon_num = #{couponNum}
+	</select>
+	
+	<!-- 通过id查询优惠券使用状态 -->
+	<select id="selectUseStatusById" resultType="String" parameterType="Integer">
+		SELECT tr.use_status useStatus FROM t_lender_coupon_relation tr WHERE tr.id = #{id} for update
+	</select>
+	
+	<!-- 查询优惠券根据lenderNum和couponNum from lijie -->
+	<select id="selectLenderCouponByMap" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+		  lcr.id,
+		  lcr.application_range,
+		  lcr.use_line_limit,
+		  lcr.coupon_limit,
+		  lcr.coupon_type,
+		  lcr.ratio 
+		FROM
+		  t_lender_coupon_relation lcr 
+		  JOIN t_lender_detail ld 
+		    ON lcr.lender_login_id = ld.lender_login_id
+		WHERE ld.lender_num = #{lenderNum} 
+		  AND lcr.coupon_num = #{couponNum}
+		  AND lcr.use_status = '1'
+	</select>
+	
+	<!-- 分别获取红包状态数量 -->
+	<select id="getCouponUseStatusNum" parameterType="integer" resultType="hashmap">
+		SELECT 
+		  COUNT(*) useStatusCol, lcr.use_status useStatus
+		FROM
+		  t_lender_coupon_relation lcr 
+		WHERE lcr.lender_login_id = #{lenderLoginId}  
+		GROUP BY lcr.use_status   
+	</select>
+	
+	<!-- 查询状态未使用但时间已过期的优惠券数量 -->
+	<select id="updateCouponStatus" parameterType="string">
+		UPDATE 
+		  t_lender_coupon_relation tr 
+		SET
+		  tr.use_status = 3,
+		  tr.operate_time = NOW() 
+		WHERE tr.use_status = 1
+		<![CDATA[ 
+		  AND DATE_FORMAT(tr.valid_end_date, "%Y-%m-%d") < #{currentTime}
+		]]>  
+  	</select>
+  	
+  	<sql id="dynamicWhere">
+ 		WHERE lcr.lender_login_id = #{lenderLoginId}
+	  	AND lcr.coupon_type != '2' 
+	  	AND lcr.use_status = '1' 
+	  	<![CDATA[ 
+	  		AND use_line_limit <= #{investAmount} 
+	  	]]>  
+	  	AND FIND_IN_SET(#{applicationRange}, lcr.application_range)
+  	</sql>
+  	
+  	<!-- 查询可用优惠券 -->
+  	<select id="selectInvestUsableCouponForMobile" parameterType="hashmap" resultType="hashmap">
+  		SELECT 
+		  lcr.coupon_name couponName,
+		  lcr.coupon_num couponNum,
+		  lcr.coupon_type couponType,
+		  lcr.use_line_limit useLineLimit,
+		  lcr.application_range applicationRange,
+		  lcr.coupon_limit couponLimit,
+		  lcr.ratio ratio,
+		  lcr.use_status useStatus,
+		  DATE_FORMAT(lcr.valid_end_date, '%Y-%m-%d') validEndDate  
+		FROM
+		  t_lender_coupon_relation lcr 
+		<include refid="dynamicWhere"></include>
+  	</select>
+  	
+  	<!-- 可用优惠券个数 -->
+  	<select id="selectCountForMobile" parameterType="hashmap" resultType="int">
+  		SELECT 
+			COUNT(1) totalCount
+		FROM
+		  t_lender_coupon_relation lcr 
+		<include refid="dynamicWhere"></include>
+  	</select>
+  	
+  	<!-- 查询优惠券根据lenderLoginId和couponNum -->
+  	<select id="selectLenderCouponByMapForMobile" parameterType="hashmap" resultType="hashmap">
+  		SELECT 
+		  lcr.id,
+		  lcr.application_range,
+		  lcr.use_line_limit,
+		  lcr.coupon_limit,
+		  lcr.coupon_type,
+		  lcr.ratio 
+		FROM
+		  t_lender_coupon_relation lcr 
+		WHERE lcr.lender_login_id = #{lenderLoginId} 
+		  AND lcr.coupon_num = #{couponNum}
+		  AND lcr.use_status = '1' 
+  	</select>
+  	
+  	<select id="getCoupomNumByLenderLoginId" parameterType="Integer" resultType="Integer">
+  		SELECT 
+		  COUNT(1) 
+		FROM
+		  t_lender_coupon_relation lcr 
+		WHERE lcr.lender_login_id = #{lenderLoginId}
+  	</select>
+</mapper>

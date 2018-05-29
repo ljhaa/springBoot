@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.LanmaoServiceLogMapper" >
+  <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.LanmaoServiceLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="request_no" property="requestNo" jdbcType="VARCHAR" />
+    <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
+    <result column="req_or_res" property="reqOrRes" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="service_name_zh" property="serviceNameZh" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yipuhui.fastgo.enty.LanmaoServiceLogWithBlobs" extends="BaseResultMap" >
+    <result column="req_data" property="reqData" jdbcType="LONGVARCHAR" />
+    <result column="save_data" property="saveData" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, request_no, service_name, req_or_res, time, service_name_zh
+  </sql>
+  <sql id="Blob_Column_List" >
+    req_data, save_data
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yipuhui.fastgo.enty.LanmaoServiceLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lanmao_service_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yipuhui.fastgo.enty.LanmaoServiceLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lanmao_service_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lanmao_service_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lanmao_service_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yipuhui.fastgo.enty.LanmaoServiceLogExample" >
+    delete from lanmao_service_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yipuhui.fastgo.enty.LanmaoServiceLogWithBlobs" >
+    insert into lanmao_service_log (id, request_no, service_name,
+    req_or_res, time, service_name_zh,
+    req_data, save_data)
+    values (#{id,jdbcType=INTEGER}, #{requestNo,jdbcType=VARCHAR}, #{serviceName,jdbcType=VARCHAR},
+    #{reqOrRes,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{serviceNameZh,jdbcType=VARCHAR},
+    #{reqData,jdbcType=LONGVARCHAR}, #{saveData,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yipuhui.fastgo.enty.LanmaoServiceLogWithBlobs" >
+    insert into lanmao_service_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="requestNo != null" >
+        request_no,
+      </if>
+      <if test="serviceName != null" >
+        service_name,
+      </if>
+      <if test="reqOrRes != null" >
+        req_or_res,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="serviceNameZh != null" >
+        service_name_zh,
+      </if>
+      <if test="reqData != null" >
+        req_data,
+      </if>
+      <if test="saveData != null" >
+        save_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="requestNo != null" >
+        #{requestNo,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null" >
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="reqOrRes != null" >
+        #{reqOrRes,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceNameZh != null" >
+        #{serviceNameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="reqData != null" >
+        #{reqData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="saveData != null" >
+        #{saveData,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yipuhui.fastgo.enty.LanmaoServiceLogExample" resultType="java.lang.Integer" >
+    select count(*) from lanmao_service_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lanmao_service_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.requestNo != null" >
+        request_no = #{record.requestNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceName != null" >
+        service_name = #{record.serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqOrRes != null" >
+        req_or_res = #{record.reqOrRes,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serviceNameZh != null" >
+        service_name_zh = #{record.serviceNameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reqData != null" >
+        req_data = #{record.reqData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.saveData != null" >
+        save_data = #{record.saveData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update lanmao_service_log
+    set id = #{record.id,jdbcType=INTEGER},
+    request_no = #{record.requestNo,jdbcType=VARCHAR},
+    service_name = #{record.serviceName,jdbcType=VARCHAR},
+    req_or_res = #{record.reqOrRes,jdbcType=INTEGER},
+    time = #{record.time,jdbcType=TIMESTAMP},
+    service_name_zh = #{record.serviceNameZh,jdbcType=VARCHAR},
+    req_data = #{record.reqData,jdbcType=LONGVARCHAR},
+    save_data = #{record.saveData,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lanmao_service_log
+    set id = #{record.id,jdbcType=INTEGER},
+    request_no = #{record.requestNo,jdbcType=VARCHAR},
+    service_name = #{record.serviceName,jdbcType=VARCHAR},
+    req_or_res = #{record.reqOrRes,jdbcType=INTEGER},
+    time = #{record.time,jdbcType=TIMESTAMP},
+    service_name_zh = #{record.serviceNameZh,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yipuhui.fastgo.enty.LanmaoServiceLogWithBlobs" >
+    update lanmao_service_log
+    <set >
+      <if test="requestNo != null" >
+        request_no = #{requestNo,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null" >
+        service_name = #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="reqOrRes != null" >
+        req_or_res = #{reqOrRes,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceNameZh != null" >
+        service_name_zh = #{serviceNameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="reqData != null" >
+        req_data = #{reqData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="saveData != null" >
+        save_data = #{saveData,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yipuhui.fastgo.enty.LanmaoServiceLogWithBlobs" >
+    update lanmao_service_log
+    set request_no = #{requestNo,jdbcType=VARCHAR},
+    service_name = #{serviceName,jdbcType=VARCHAR},
+    req_or_res = #{reqOrRes,jdbcType=INTEGER},
+    time = #{time,jdbcType=TIMESTAMP},
+    service_name_zh = #{serviceNameZh,jdbcType=VARCHAR},
+    req_data = #{reqData,jdbcType=LONGVARCHAR},
+    save_data = #{saveData,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yipuhui.fastgo.enty.LanmaoServiceLog" >
+    update lanmao_service_log
+    set request_no = #{requestNo,jdbcType=VARCHAR},
+      service_name = #{serviceName,jdbcType=VARCHAR},
+      req_or_res = #{reqOrRes,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP},
+      service_name_zh = #{serviceNameZh,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectObjectByRequestNo" parameterType="com.yipuhui.fastgo.enty.LanmaoServiceLogWithBlobs" resultMap="ResultMapWithBLOBs">
+
+SELECT <include refid="Base_Column_List"/> , <include refid="Blob_Column_List"/> FROM lanmao_service_log WHERE request_no = #{requestNo,jdbcType=VARCHAR} AND req_or_res = #{reqOrRes,jdbcType=INTEGER}
+  </select>
+
+</mapper>

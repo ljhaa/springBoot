@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.SettleZzMapper" >
+  <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.SettleZz" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="serviceType" property="servicetype" jdbcType="VARCHAR" />
+    <result column="operationCode" property="operationcode" jdbcType="VARCHAR" />
+    <result column="busPlatform" property="busplatform" jdbcType="VARCHAR" />
+    <result column="serlNum" property="serlnum" jdbcType="VARCHAR" />
+    <result column="realSerlNum" property="realserlnum" jdbcType="VARCHAR" />
+    <result column="outUser" property="outuser" jdbcType="VARCHAR" />
+    <result column="inUser" property="inuser" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="outUserFee" property="outuserfee" jdbcType="DECIMAL" />
+    <result column="inUserFee" property="inuserfee" jdbcType="DECIMAL" />
+    <result column="thiPlatform" property="thiplatform" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="msg" property="msg" jdbcType="VARCHAR" />
+    <result column="overTime" property="overtime" jdbcType="TIMESTAMP" />
+    <result column="addTime" property="addtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, serviceType, operationCode, busPlatform, serlNum, realSerlNum, outUser, inUser, 
+    amount, outUserFee, inUserFee, thiPlatform, status, msg, overTime, addTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yipuhui.fastgo.enty.SettleZzExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from paycenter.settle_zz
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from paycenter.settle_zz
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from settle_zz
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yipuhui.fastgo.enty.SettleZzExample" >
+    delete from settle_zz
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yipuhui.fastgo.enty.SettleZz" >
+    insert into paycenter.settle_zz (id, serviceType, operationCode,
+      busPlatform, serlNum, realSerlNum, 
+      outUser, inUser, amount, 
+      outUserFee, inUserFee, thiPlatform, 
+      status, msg, overTime, 
+      addTime)
+    values (#{id,jdbcType=INTEGER}, #{servicetype,jdbcType=VARCHAR}, #{operationcode,jdbcType=VARCHAR}, 
+      #{busplatform,jdbcType=VARCHAR}, #{serlnum,jdbcType=VARCHAR}, #{realserlnum,jdbcType=VARCHAR}, 
+      #{outuser,jdbcType=VARCHAR}, #{inuser,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, 
+      #{outuserfee,jdbcType=DECIMAL}, #{inuserfee,jdbcType=DECIMAL}, #{thiplatform,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{msg,jdbcType=VARCHAR}, #{overtime,jdbcType=TIMESTAMP}, 
+      #{addtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yipuhui.fastgo.enty.SettleZz" >
+    insert into paycenter.settle_zz
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="servicetype != null" >
+        serviceType,
+      </if>
+      <if test="operationcode != null" >
+        operationCode,
+      </if>
+      <if test="busplatform != null" >
+        busPlatform,
+      </if>
+      <if test="serlnum != null" >
+        serlNum,
+      </if>
+      <if test="realserlnum != null" >
+        realSerlNum,
+      </if>
+      <if test="outuser != null" >
+        outUser,
+      </if>
+      <if test="inuser != null" >
+        inUser,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="outuserfee != null" >
+        outUserFee,
+      </if>
+      <if test="inuserfee != null" >
+        inUserFee,
+      </if>
+      <if test="thiplatform != null" >
+        thiPlatform,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="msg != null" >
+        msg,
+      </if>
+      <if test="overtime != null" >
+        overTime,
+      </if>
+      <if test="addtime != null" >
+        addTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="servicetype != null" >
+        #{servicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="operationcode != null" >
+        #{operationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="busplatform != null" >
+        #{busplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="serlnum != null" >
+        #{serlnum,jdbcType=VARCHAR},
+      </if>
+      <if test="realserlnum != null" >
+        #{realserlnum,jdbcType=VARCHAR},
+      </if>
+      <if test="outuser != null" >
+        #{outuser,jdbcType=VARCHAR},
+      </if>
+      <if test="inuser != null" >
+        #{inuser,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="outuserfee != null" >
+        #{outuserfee,jdbcType=DECIMAL},
+      </if>
+      <if test="inuserfee != null" >
+        #{inuserfee,jdbcType=DECIMAL},
+      </if>
+      <if test="thiplatform != null" >
+        #{thiplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="overtime != null" >
+        #{overtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yipuhui.fastgo.enty.SettleZzExample" resultType="java.lang.Integer" >
+    select count(*) from settle_zz
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update paycenter.settle_zz
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.servicetype != null" >
+        serviceType = #{record.servicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationcode != null" >
+        operationCode = #{record.operationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busplatform != null" >
+        busPlatform = #{record.busplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serlnum != null" >
+        serlNum = #{record.serlnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realserlnum != null" >
+        realSerlNum = #{record.realserlnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outuser != null" >
+        outUser = #{record.outuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inuser != null" >
+        inUser = #{record.inuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.outuserfee != null" >
+        outUserFee = #{record.outuserfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.inuserfee != null" >
+        inUserFee = #{record.inuserfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.thiplatform != null" >
+        thiPlatform = #{record.thiplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msg != null" >
+        msg = #{record.msg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overtime != null" >
+        overTime = #{record.overtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.addtime != null" >
+        addTime = #{record.addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update paycenter.settle_zz
+    set id = #{record.id,jdbcType=INTEGER},
+      serviceType = #{record.servicetype,jdbcType=VARCHAR},
+      operationCode = #{record.operationcode,jdbcType=VARCHAR},
+      busPlatform = #{record.busplatform,jdbcType=VARCHAR},
+      serlNum = #{record.serlnum,jdbcType=VARCHAR},
+      realSerlNum = #{record.realserlnum,jdbcType=VARCHAR},
+      outUser = #{record.outuser,jdbcType=VARCHAR},
+      inUser = #{record.inuser,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      outUserFee = #{record.outuserfee,jdbcType=DECIMAL},
+      inUserFee = #{record.inuserfee,jdbcType=DECIMAL},
+      thiPlatform = #{record.thiplatform,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      msg = #{record.msg,jdbcType=VARCHAR},
+      overTime = #{record.overtime,jdbcType=TIMESTAMP},
+      addTime = #{record.addtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yipuhui.fastgo.enty.SettleZz" >
+    update paycenter.settle_zz
+    <set >
+      <if test="servicetype != null" >
+        serviceType = #{servicetype,jdbcType=VARCHAR},
+      </if>
+      <if test="operationcode != null" >
+        operationCode = #{operationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="busplatform != null" >
+        busPlatform = #{busplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="serlnum != null" >
+        serlNum = #{serlnum,jdbcType=VARCHAR},
+      </if>
+      <if test="realserlnum != null" >
+        realSerlNum = #{realserlnum,jdbcType=VARCHAR},
+      </if>
+      <if test="outuser != null" >
+        outUser = #{outuser,jdbcType=VARCHAR},
+      </if>
+      <if test="inuser != null" >
+        inUser = #{inuser,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="outuserfee != null" >
+        outUserFee = #{outuserfee,jdbcType=DECIMAL},
+      </if>
+      <if test="inuserfee != null" >
+        inUserFee = #{inuserfee,jdbcType=DECIMAL},
+      </if>
+      <if test="thiplatform != null" >
+        thiPlatform = #{thiplatform,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null" >
+        msg = #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="overtime != null" >
+        overTime = #{overtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addtime != null" >
+        addTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yipuhui.fastgo.enty.SettleZz" >
+    update paycenter.settle_zz
+    set serviceType = #{servicetype,jdbcType=VARCHAR},
+      operationCode = #{operationcode,jdbcType=VARCHAR},
+      busPlatform = #{busplatform,jdbcType=VARCHAR},
+      serlNum = #{serlnum,jdbcType=VARCHAR},
+      realSerlNum = #{realserlnum,jdbcType=VARCHAR},
+      outUser = #{outuser,jdbcType=VARCHAR},
+      inUser = #{inuser,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      outUserFee = #{outuserfee,jdbcType=DECIMAL},
+      inUserFee = #{inuserfee,jdbcType=DECIMAL},
+      thiPlatform = #{thiplatform,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      msg = #{msg,jdbcType=VARCHAR},
+      overTime = #{overtime,jdbcType=TIMESTAMP},
+      addTime = #{addtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updataStatusByRequstNo" parameterType="com.yipuhui.fastgo.enty.SettleZz">
+UPDATE paycenter.settle_zz
+set status = #{status,jdbcType=VARCHAR},overTime = #{overtime,jdbcType=TIMESTAMP}, msg = #{msg,jdbcType=VARCHAR} WHERE realSerlNum = #{realserlnum,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByRequstNo" parameterType="com.yipuhui.fastgo.enty.SettleZz" resultMap="BaseResultMap">
+
+SELECT <include refid="Base_Column_List"/> FROM paycenter.settle_zz WHERE realserlnum like  CONCAT( #{realserlnum,jdbcType=VARCHAR},"%")
+  </select>
+  <select id="fundSettleZzByTimeAndStatus" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM paycenter.settle_zz WHERE
+      status =#{status,jdbcType=VARCHAR} AND
+      DATE_FORMAT(#{addTime},'%Y-%m-%d')=DATE_FORMAT(addTime,'%Y-%m-%d')
+  </select>
+</mapper>

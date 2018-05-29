@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.SearchForUeAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.UeAccount" >
+    <id column="ue_account_id" property="ueAccountId" jdbcType="INTEGER" />
+    <result column="available" property="available" jdbcType="DECIMAL" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="lender_login_id" property="lenderLoginId" jdbcType="INTEGER" />
+    <result column="expected" property="expected" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ue_account_id, available, money, lender_login_id, expected, create_time
+  </sql>
+  <sql id="dynamicPageWhere">
+  	<if test="mobile != null and mobile != ''" >
+        and tll.mobile like CONCAT('%','${mobile }','%' )  
+    </if>
+    <if test="realName != null and realName != ''" >
+	    and tld.real_name like CONCAT('%','${realName }','%' )  
+    </if>
+    <if test="cardNum != null and cardNum != ''" >
+	    and tld.card_num like CONCAT('%','${cardNum }','%' )  
+    </if>
+  </sql>
+  <!-- 按条件查询投资用户体验金账户的记录列表 -->
+  <!-- <select id="findAccountPageListByMap" parameterType="HashMap" resultType="HashMap">
+  	select 
+  		tll.id as loginId,
+  		tll.nick_name, 
+  		tll.mobile,
+  		tld.real_name,
+  		tld.card_type,
+  		tld.card_num,
+  		ua.available,
+  		ua.money,
+  		ua.expected
+    from t_lender_login tll
+     left join t_lender_detail tld on tll.id=tld.lender_login_id
+     left join ue_account ua on tll.id=ua.lender_login_id
+  	where 1=1 
+  	<include refid="dynamicPageWhere"/>
+  	limit #{startIndex},#{pageSize}
+  </select> -->
+  
+  <select id="findAccountPageListByMap" parameterType="HashMap" resultType="HashMap">
+  	select 
+  		tll.id as loginId,
+  		tll.nick_name, 
+  		tll.mobile,
+  		tld.real_name,
+  		tld.card_type,
+  		tld.card_num,
+  		ua.available,
+  		ua.money,
+  		ua.expected
+    from t_lender_login tll
+     join t_lender_detail tld on tll.id=tld.lender_login_id
+     join ue_account ua on tll.id=ua.lender_login_id
+  	where 1=1 
+  	<include refid="dynamicPageWhere"/>
+  	limit #{startIndex},#{pageSize}
+  </select>
+  
+  <!-- 按条件查询用户体验金账户的总计数 -->
+  <select id="findAccountCountByMap" parameterType="HashMap" resultType="Long">
+  	select 
+  		count(tll.id)
+    from t_lender_login tll
+      join t_lender_detail tld on tll.id=tld.lender_login_id
+     join ue_account ua on tll.id=ua.lender_login_id
+  	where 1=1 
+  	<include refid="dynamicPageWhere"/>
+  </select>
+  <update id="updateAccountForInvest" parameterType="com.yipuhui.fastgo.enty.UeAccount" >
+    update ue_account
+    <set>
+      <if test="available != null" >
+        available = available + #{available,jdbcType=DECIMAL},
+      </if>
+      <if test="money != null" >
+        money = money + #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="expected != null" >
+        expected = expected + #{expected,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where lender_login_id = #{lenderLoginId,jdbcType=INTEGER}
+  </update>
+  <!-- 通过LoginId得到体验金账号信息 -->
+  <select id="getUeAcountByLoginId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ue_account
+    where lender_login_id = #{loginId,jdbcType=INTEGER}
+  </select>
+   
+  <resultMap id="BaseResultMap2" type="com.yipuhui.fastgo.enty.UeInvest" >
+    <id column="ue_invest_id" property="ueInvestId" jdbcType="INTEGER" />
+    <result column="ue_bid_id" property="ueBidId" jdbcType="INTEGER" />
+    <result column="invest_amount" property="investAmount" jdbcType="DECIMAL" />
+    <result column="invest_time" property="investTime" jdbcType="TIMESTAMP" />
+    <result column="due_date" property="dueDate" jdbcType="DATE" />
+    <result column="redemption_money" property="redemptionMoney" jdbcType="DECIMAL" />
+    <result column="invest_status" property="investStatus" jdbcType="CHAR" />
+    <result column="lender_login_id" property="lenderLoginId" jdbcType="INTEGER" />
+    <result column="destroy_date" property="destroyDate" jdbcType="TIMESTAMP" />
+    <result column="sel_num" property="selNum" jdbcType="VARCHAR" />
+    <result column="rate" property="rate" jdbcType="DECIMAL" />
+    <result column="term" property="term" jdbcType="INTEGER" />
+    <result column="invest_num" property="investNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List2" >
+    ue_invest_id, ue_bid_id, invest_amount, invest_time, due_date, redemption_money, 
+    invest_status, lender_login_id, destroy_date, sel_num, rate, term, invest_num
+  </sql>
+  <sql id="dynamicPageWhere2">
+  	
+  </sql>
+  <!-- 按条件查询投资用户体验金账户的记录列表 -->
+  <select id="findUeInvestPageListByMap" parameterType="HashMap" resultType="HashMap">
+  	select 
+  		*
+    from ue_invest
+  	where 1=1 
+  	<include refid="dynamicPageWhere2"/>
+  	and lender_login_id = #{loginId}
+  	limit #{startIndex},#{pageSize}
+  </select>
+  <!-- 按条件查询用户体验金账户的总计数 -->
+  <select id="findUeInvestCountByMap" parameterType="HashMap" resultType="Long">
+  	select 
+  		count(ue_invest_id)
+    from ue_invest
+  	where 1=1 
+  	<include refid="dynamicPageWhere2"/>
+  	and lender_login_id = #{loginId}
+  </select>
+  <!-- 
+  	根据条件查询出指定的体验金投资记录
+  	investStatus  投资状态
+  	investStatusList  投资状态集合
+	validDayCount 有效天数
+	currDate      当前系统时间
+	isCanTakeCash 该投资是否可提现（yes是，其他不检查）
+   -->
+  <!-- <select id="getUeInvestList" parameterType="HashMap" resultMap="BaseResultMap2">
+   	select 
+    	<include refid="Base_Column_List2" />
+    from ue_invest ui
+    where 1=1
+    <if test="investStatus != null and investStatus != ''"> and ui.invest_status = #{investStatus}</if>
+    <if test="investStatusArray !=null "> 
+	 	and ui.invest_status in 
+		<foreach item="item" collection="investStatusArray" open="(" separator="," close=")">
+         #{item}
+        </foreach>
+    </if>
+    <if test="validDayCount != null"><![CDATA[ and DATEDIFF(#{currDate}, ui.due_date) >= #{validDayCount} ]]></if>
+    <if test="isCanTakeCash != null"><![CDATA[ 
+    	and (select count(tir.invest_id) from t_invest_record tir, t_lender_detail tld where tir.lender_id=tld.id and tld.lender_login_id=ui.lender_login_id ) > 0
+     ]]></if>
+  </select> -->
+  <select id="getUeInvestList" parameterType="HashMap" resultMap="BaseResultMap2">
+   	select 
+    	<include refid="Base_Column_List2" />
+    from ue_invest ui
+    where 1=1
+    <if test="investStatus != null and investStatus != ''"> and ui.invest_status = #{investStatus}</if>
+    <if test="investStatusArray !=null "> 
+	 	and ui.invest_status in 
+		<foreach item="item" collection="investStatusArray" open="(" separator="," close=")">
+         #{item}
+        </foreach>
+    </if>
+    <if test="validDayCount != null"><![CDATA[ and DATEDIFF(#{currDate}, ui.due_date) >= #{validDayCount} ]]></if>
+    <if test="isCanTakeCash != null"><![CDATA[ 
+    	and (select count(1) from t_bid_record tir, t_lender_detail tld where tir.lender_id=tld.id and tld.lender_login_id=ui.lender_login_id ) > 0
+     ]]></if>
+  </select>
+  <!-- 
+  	根据登录ID查询出所有符合划拨收益体验金投资记录
+   -->
+  <select id="getUeInvestListByLoginId" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+   	select 
+    	<include refid="Base_Column_List2" />
+    from ue_invest ui
+    where ui.lender_login_id = #{loginId}
+    	and (select count(tir.invest_id) from t_invest_record tir, t_lender_detail tld where tir.lender_id=tld.id and tld.lender_login_id=ui.lender_login_id ) > 0
+  </select>
+  <!-- 根据流水编号得到对应的投资  -->
+  <select id="getUeInvestBySerlNum" parameterType="string" resultMap="BaseResultMap2">
+   	select 
+    	<include refid="Base_Column_List2" />
+    from ue_invest
+    where sel_num = #{serlNum,jdbcType=VARCHAR}
+  </select>
+  
+  <resultMap id="BaseResultMap3" type="com.yipuhui.fastgo.enty.UeWater" >
+    <id column="ue_water_id" property="ueWaterId" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="lender_login_id" property="lenderLoginId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="water_desc" property="waterDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List3" >
+    ue_water_id, money, lender_login_id, type, create_time, water_desc
+  </sql>
+  <sql id="dynamicPageWhere3">
+  	<if test="type != null and type != ''" >
+        and type = ${type } 
+    </if>
+    <if test="waterDesc != null and waterDesc != ''" >
+        and water_desc like CONCAT('%','${waterDesc }','%' )  
+    </if>
+  </sql>
+  <!-- 体验金账号流水记录 -->
+  <select id="findUeWaterPageListByMap" parameterType="HashMap" resultType="HashMap">
+  	select 
+  		 <include refid="Base_Column_List3" />
+    from ue_water
+  	where lender_login_id = #{loginId }
+  	<include refid="dynamicPageWhere3"/>
+  	limit #{startIndex},#{pageSize}
+  </select>
+  <!-- 体验金账号流水记录总数 -->
+  <select id="findUeWaterCountByMap" parameterType="HashMap" resultType="Long">
+  	select 
+  		count(ue_water_id)
+    from ue_water
+  	where lender_login_id = #{loginId }
+  	<include refid="dynamicPageWhere3"/>
+  </select>
+  
+  
+  <select id="getUeAcountList" parameterType="HashMap" resultMap="BaseResultMap">
+  	select 
+    	ua.ue_account_id as ueAccountId, 
+    	ua.available, 
+    	ua.money, 
+    	ua.lender_login_id as lenderLoginId, 
+    	ua.expected, 
+    	ua.create_time as createTime
+    from ue_account ua join ue_water uw on ua.lender_login_id = uw.lender_login_id and uw.water_desc = #{waterDescReg}
+    where 1=1 
+      <if test="availableReg != null and available != 0"> and ua.available = #{availableReg}</if>
+    <if test="validDayCount != null"><![CDATA[ and DATEDIFF(#{currDate}, uw.create_time) >= #{validDayCount} ]]></if>
+    
+    UNION
+    
+    select 
+    	ua.ue_account_id as ueAccountId, 
+    	ua.available, 
+    	ua.money, 
+    	ua.lender_login_id as lenderLoginId, 
+    	ua.expected, 
+    	ua.create_time as createTime
+    from ue_account ua join ue_water uw on ua.lender_login_id = uw.lender_login_id and uw.water_desc = #{waterDescBind}
+     where 1=1 
+    <if test="availableBind != null and available != 0"> and ua.available in(#{availableBind},#{availableRB})</if>
+    <if test="validDayCount != null"><![CDATA[ and DATEDIFF(#{currDate}, uw.create_time) >= #{validDayCount} ]]></if>
+    
+  </select>
+    
+  <sql id="createTime">
+  	<if test="lenderLoginId != null and type != ''" >
+       (SELECT create_time FROM ue_water WHERE lender_login_id = #{lenderLoginId,jdbcType=INTEGER} AND water_desc = '开户赠送体验金')
+    </if>
+    
+  </sql>
+  
+  
+  <!-- 注册、开户体验金 -->
+  <select id="getUeAcountWater" parameterType="map" resultType="HashMap">
+  		select
+  		'tyj' as couponType,
+  		uw.ue_water_id as couponnNum,
+  		case
+  		when uw.water_desc = "注册赠送体验金" then "体验金-注册奖励"
+  		when uw.water_desc = "开户赠送体验金" then "体验金-开户奖励"
+  		end as couponName,
+  		if(<include refid="createTime"/> is null,DATE_ADD(uw.create_time,INTERVAL #{validDayCount,jdbcType=INTEGER} DAY),
+  		case 
+  		when ua.available = 0 then DATE_ADD(<include refid="createTime"/>,INTERVAL #{validDayCount,jdbcType=INTEGER} DAY)
+  		when ua.available != 0 then DATE_ADD(uw.create_time,INTERVAL #{validDayCount,jdbcType=INTEGER} DAY)
+  		end) as validEndDate,
+  		uw.money as couponLimit,
+  		ua.create_time as createTime,
+  		if(ui.ue_invest_id is null,
+  		case
+  		when uw.water_desc = "注册赠送体验金" and ua.available = 8000 then '3'
+  		when uw.water_desc = "注册赠送体验金" and ua.available = 2000 then '1'
+  		when uw.water_desc = "开户赠送体验金" and ua.available = 8000 then '1'
+  		when ua.available = 0 then '3'
+  		when ua.available = 10000 then '1'
+  		<!-- when ua.available = 0 and DATEDIFF(#{currDate,jdbcType=TIMESTAMP}, ua.create_time) >= #{validDayCount} then '3' -->
+  		end,
+  		case
+  		when  uw.water_desc = "注册赠送体验金" and ui.invest_amount = 8000 then '3'
+  		else '2'
+  		end
+  		)as useStatus 
+  		from ue_account ua join ue_water uw on ua.lender_login_id = uw.lender_login_id
+  		left join ue_invest ui on ui.lender_login_id = ua.lender_login_id
+  		
+  		where uw.water_desc in (#{waterDesc1,jdbcType=VARCHAR},#{waterDesc2,jdbcType=VARCHAR}) and uw.lender_login_id = #{lenderLoginId,jdbcType=INTEGER} 
+  </select>
+ 
+  
+</mapper>

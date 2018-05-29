@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yipuhui.fastgo.dao.LenderDetailMapper">
+    <resultMap id="BaseResultMap" type="com.yipuhui.fastgo.enty.LenderDetail">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="lender_num" property="lenderNum" jdbcType="VARCHAR"/>
+        <result column="lender_login_id" property="lenderLoginId"
+                jdbcType="INTEGER"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="CHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="card_type" property="cardType" jdbcType="CHAR"/>
+        <result column="card_num" property="cardNum" jdbcType="VARCHAR"/>
+        <result column="birth_date" property="birthDate" jdbcType="DATE"/>
+        <result column="graduate_school" property="graduateSchool"
+                jdbcType="VARCHAR"/>
+        <result column="residential_addr" property="residentialAddr"
+                jdbcType="VARCHAR"/>
+        <result column="marital_status" property="maritalStatus"
+                jdbcType="CHAR"/>
+        <result column="company" property="company" jdbcType="VARCHAR"/>
+        <result column="position" property="position" jdbcType="CHAR"/>
+        <result column="income_month" property="incomeMonth" jdbcType="CHAR"/>
+        <result column="lender_status" property="lenderStatus"
+                jdbcType="CHAR"/>
+        <result column="certification_status" property="certificationStatus"
+                jdbcType="CHAR"/>
+        <result column="use_status" property="useStatus" jdbcType="CHAR"/>
+        <result column="middle_men" property="middleMen" jdbcType="CHAR"/>
+        <result column="system_code" property="systemCode" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="operate_time" property="operateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+		id, lender_num, lender_login_id, real_name, sex, mobile, card_type,
+		card_num, birth_date,
+		graduate_school, residential_addr, marital_status, company, position, income_month,
+		lender_status, certification_status, use_status, middle_men,
+		system_code, create_time,
+		 operate_time
+	</sql>
+
+    <insert id="insertSelective" parameterType="com.yipuhui.fastgo.enty.LenderDetail">
+        insert into t_lender_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="lenderNum != null">
+                lender_num,
+            </if>
+            <if test="lenderLoginId != null">
+                lender_login_id,
+            </if>
+            <if test="realName != null">
+                real_name,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="cardType != null">
+                card_type,
+            </if>
+            <if test="cardNum != null">
+                card_num,
+            </if>
+            <if test="birthDate != null">
+                birth_date,
+            </if>
+            <if test="graduateSchool != null">
+                graduate_school,
+            </if>
+            <if test="residentialAddr != null">
+                residential_addr,
+            </if>
+            <if test="maritalStatus != null">
+                marital_status,
+            </if>
+            <if test="company != null">
+                company,
+            </if>
+            <if test="position != null">
+                position,
+            </if>
+            <if test="incomeMonth != null">
+                income_month,
+            </if>
+            <if test="lenderStatus != null">
+                lender_status,
+            </if>
+            <if test="certificationStatus != null">
+                certification_status,
+            </if>
+            <if test="useStatus != null">
+                use_status,
+            </if>
+            <if test="middleMen != null">
+                middle_men,
+            </if>
+            <if test="systemCode != null">
+                system_code,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="operateTime != null">
+                operate_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="lenderNum != null">
+                #{lenderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="lenderLoginId != null">
+                #{lenderLoginId,jdbcType=INTEGER},
+            </if>
+            <if test="realName != null">
+                #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=CHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="cardType != null">
+                #{cardType,jdbcType=CHAR},
+            </if>
+            <if test="cardNum != null">
+                #{cardNum,jdbcType=VARCHAR},
+            </if>
+            <if test="birthDate != null">
+                #{birthDate,jdbcType=DATE},
+            </if>
+            <if test="graduateSchool != null">
+                #{graduateSchool,jdbcType=VARCHAR},
+            </if>
+            <if test="residentialAddr != null">
+                #{residentialAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="maritalStatus != null">
+                #{maritalStatus,jdbcType=CHAR},
+            </if>
+            <if test="company != null">
+                #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="position != null">
+                #{position,jdbcType=CHAR},
+            </if>
+            <if test="incomeMonth != null">
+                #{incomeMonth,jdbcType=CHAR},
+            </if>
+            <if test="lenderStatus != null">
+                #{lenderStatus,jdbcType=CHAR},
+            </if>
+            <if test="certificationStatus != null">
+                #{certificationStatus,jdbcType=CHAR},
+            </if>
+            <if test="useStatus != null">
+                #{useStatus,jdbcType=CHAR},
+            </if>
+            <if test="middleMen != null">
+                #{middleMen,jdbcType=CHAR},
+            </if>
+            <if test="systemCode != null">
+                #{systemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="operateTime != null">
+                #{operateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_lender_detail
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <!-- 注册修改用户状态根据平台编号 -->
+    <update id="updateLenderStatusByLenderNum" parameterType="hashmap">
+		UPDATE
+		t_lender_detail ld
+		SET
+		ld.operate_time = NOW(),
+		certification_status = #{certificationStatus}
+		WHERE ld.lender_num = #{lenderNum}
+	</update>
+    <!-- 根据客户编号查询客户明细信息 -->
+    <select id="findLenderDetailInfoByLenderNum" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_lender_detail
+        where lender_num = #{lenderNum}
+    </select>
+
+    <select id="findLenderDetailInfoByCadeNum" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_lender_detail
+        where card_num = #{cardNum}
+    </select>
+
+
+
+</mapper>
